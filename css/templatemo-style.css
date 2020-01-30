@@ -16,6 +16,10 @@ body {
 p, q { line-height: 1.2; }
 h2 { font-size: 1.8rem; }
 
+.txt-centered {
+    text-align: center;
+}
+
 .small-image {
     width: 250px;
     border-style: solid;
@@ -365,10 +369,6 @@ select:focus {
 
 .tm-col-md-reverse > * {
     flex: 1;
-}
-
-.intro-labels {
-    text-align: center;
 }
 
 @media(min-width: 992px) {
