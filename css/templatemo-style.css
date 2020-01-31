@@ -15,6 +15,7 @@ body {
 
 p, q { line-height: 1.2; }
 h2 { font-size: 1.8rem; }
+a { color: #005687; }
 
 .txt-centered {
     text-align: center;
@@ -79,8 +80,8 @@ h2 { font-size: 1.8rem; }
 }
 
 .btn-primary {
-    background: #444466;
-    border-color: #444466;
+    background: #005687;
+    border-color: #005687;
 }
 
 .btn-secondary {
@@ -96,16 +97,16 @@ h2 { font-size: 1.8rem; }
 
 .btn-primary:focus,
 .btn-primary:hover {
-    background: #4949ec;
-    border-color: #4949ec;
+    background: #3780ad;
+    border-color: #3780ad;
 }
 
-.tm-bg-color-primary { background-color: #444466; }
+.tm-bg-color-primary { background-color: #005687; }
 .tm-bg-color-secondary { background-color: #990000; }
-.tm-bg-color-gray { background-color: #777799; }
-.tm-text-color-primary { color: #444466; }
+.tm-bg-color-gray { background-color: #ffffffdd; }
+.tm-text-color-primary { color: #005687; }
 .tm-text-color-white { color: white; }
-.tm-text-color-subwhite { color: #aaaaaa; }
+.tm-text-color-subwhite { color: #ffffffbb; }
 .tm-text-color-gray { color: #666666; }
 .tm-font-thin { font-weight: 300; }
 .tm-max-w-400 { max-width: 400px; }
