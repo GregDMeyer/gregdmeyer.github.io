@@ -111,6 +111,10 @@ a { color: #005687; }
 .tm-font-thin { font-weight: 300; }
 .tm-max-w-400 { max-width: 400px; }
 
+.text-small { font-size: 1rem; }
+.text-vsmall { font-size: 0.85rem; }
+.dedent { text-indent: -1em; }
+
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #666666;
     opacity: 1; /* Firefox */
