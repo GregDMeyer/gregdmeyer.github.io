@@ -270,6 +270,7 @@ label:before {
 [type="checkbox"] ~ div {
     max-height: 100px;
     transition: all .45s cubic-bezier(.44,.99,.48,1);
+    overflow: hidden;
 }
 
 /* fade out text */
@@ -281,12 +282,8 @@ label:before {
   background: linear-gradient(to bottom, transparent, white);
 }
 
-[type="checkbox"] ~ div ~ div {
-    overflow-y: hidden;
-}
-
 [type="checkbox"]:checked ~ div {
-    max-height: 1200px;
+    max-height: 2000px;
 }
 
 [type="checkbox"]:checked ~ div:before {
