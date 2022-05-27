@@ -219,6 +219,10 @@ select:focus {
 }
 
 /* https://www.sitepoint.com/implementing-show-moreless-functionality-with-pure-css/ */
+.talk-list {
+  padding-left: 1em;
+}
+
 .expand-container {
     position: relative;
     height: auto;
@@ -237,8 +241,9 @@ label {
   height: 48px;
   cursor: pointer;
   position: absolute;
-  top: 0;
+  top: 100px;
   vertical-align: center;
+  transition: top .45s cubic-bezier(.44,.99,.48,1);
 }
 
 label:focus,
@@ -263,16 +268,33 @@ label:before {
 }
 
 [type="checkbox"] ~ div {
-  display: none;
+    max-height: 100px;
+    transition: all .45s cubic-bezier(.44,.99,.48,1);
+}
+
+/* fade out text */
+[type="checkbox"] ~ div:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, transparent, white);
+}
+
+[type="checkbox"] ~ div ~ div {
+    overflow-y: hidden;
 }
 
 [type="checkbox"]:checked ~ div {
-  display: block;
+    max-height: 1200px;
+}
+
+[type="checkbox"]:checked ~ div:before {
+    background: transparent;
 }
 
 [type="checkbox"]:checked + label {
   top: 100%;
-  margin-top: 1rem;
 }
 
 /* Loader */
