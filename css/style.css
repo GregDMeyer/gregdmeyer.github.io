@@ -1,10 +1,3 @@
-/*
-
-Magazee Template
-
-http://www.templatemo.com/tm-514-magazee
-
-*/
 
 body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -223,6 +216,63 @@ select:focus {
 .tm-copyright-text {
     padding: 20px;
     font-size: 1rem;
+}
+
+/* https://www.sitepoint.com/implementing-show-moreless-functionality-with-pure-css/ */
+.expand-container {
+    position: relative;
+    height: auto;
+}
+
+[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+}
+
+label {
+  background: white;
+  color: #005687;
+  display: block;
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  vertical-align: center;
+}
+
+label:focus,
+label:hover {
+  background: #eeeeee;
+}
+
+label:before,
+label:after {
+  position: absolute;
+}
+
+label:before {
+  content: '⇣ show more ⇣';
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 40%);
+}
+
+[type="checkbox"]:checked + label:before {
+  content: '⇡ show less ⇡';
+}
+
+[type="checkbox"] ~ div {
+  display: none;
+}
+
+[type="checkbox"]:checked ~ div {
+  display: block;
+}
+
+[type="checkbox"]:checked + label {
+  top: 100%;
+  margin-top: 1rem;
 }
 
 /* Loader */
