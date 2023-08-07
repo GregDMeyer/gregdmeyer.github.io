@@ -43,13 +43,15 @@ http://www.templatemo.com/tm-514-magazee
     <div class="tm-flex-center p-5 tm-bg-color-primary tm-section-min-h">
       <div class="tm-flex-center tm-flex-col">
         <img src="img/headshot.jpg" alt="photo of face" class="rounded-circle mb-4 tm-md-align-center">
-        <h3 class="tm-text-color-white tm-site-name txt-centered">Greg Kahanamoku-Meyer</h2>
+        <h3 class="tm-text-color-white tm-site-name txt-centered">Greg Kahanamoku-Meyer</h3>
+        <p class="text-small tm-text-color-subwhite">formerly: Greg Meyer</p>
       </div>
     </div>
   </div>
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <div class="tm-flex-center tm-flex-col">
-      <h4 class="txt-centered mb-4 mt-4">I am a sixth year PhD candidate in the <br> <strong>Berkeley Physics</strong> department, interested in <strong>quantum computing</strong>, <strong>cryptography</strong>, and <br> <strong>high performance computing</strong>.</h4>
+      <h4 class="txt-centered mb-4 mt-4">I recently completed my <strong>PhD in Physics at Berkeley</strong>, where my dissertation focused on <strong>quantum computing</strong>, <strong>cryptography</strong>, and <br> <strong>high performance computing</strong>.</h4>
+      <p class="txt-centered">I am currently exploring next career steps while I continue my research as a postdoc; if you are hiring feel free to <a href="#contact">reach out</a>!</p>
       <div class="mt-4 txt-centered">
         <a href="files/Kahanamoku-Meyer_resume.pdf" class="btn btn-primary float-lg-left tm-md-align-center">resume</a>
         <a href="https://github.com/GregDMeyer" class="btn btn-primary float-lg-left tm-md-align-center">github</a>
@@ -68,7 +70,7 @@ http://www.templatemo.com/tm-514-magazee
       </div>
 
       <p class="text-vsmall">
-	Last updated: Mar. 6, 2023
+	Last updated: Aug. 7, 2023
       </p>
 
     </div>
@@ -80,29 +82,43 @@ http://www.templatemo.com/tm-514-magazee
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
     <div class="tm-flex-center p-5">
       <div class="tm-flex-center tm-flex-col">
-        <h2 class="tm-text-color-primary mb-4">Selected research projects</h2>
-        <h4 class="mb-2">Classically-verifiable quantum advantage from a computational Bell test</h4>
-        <p class="">
-	  <a class="" href="https://arxiv.org/abs/2104.00687">arXiv:2104.00687</a> (theory)
-	  <br>
-	  <a class="" href="https://arxiv.org/abs/2112.05156">arXiv:2112.05156</a> (experiment)
-	  <br>
-          <a class="" href="https://arxiv.org/abs/2303.01293">arXiv:2303.01293</a> (more theory results)
+        <h2 class="tm-text-color-primary mb-4">Research directions</h2>
+
+        <h4 class="mb-2">Fast circuits for quantum multiplication</h4>
+        <p class="text-small">
+          Some of the most important quantum algorithms, including Shor's algorithms for factoring and discrete logarithms, require performing multiplication on superpositions of integers.
+          The standard algorithm for multiplication, known as the "Schoolbook algorithm," requires a number of operations that is quadratic in the length of the inputs.
+          In the classical setting, faster algorithms have been known for decades, but building quantum circuits that implement them has been challenging---especially because the structure of the fast algorithms tends to require a large number of ancillas.
+          I designed a new algorithm for quantum multiplication which has a sub-quadratic gate count but uses as few as one or two total ancilla qubits.
+          Furthermore it moves a large part of the algorithmic complexity into classical pre-computation, reducing the circuit sizes in practice.
+          (Manuscript in preparation; see <a href="#talks">Talks</a> section for a talk I recently gave on these results.)
+        </p>
+
+        <h4 class="mb-2">Classically-verifiable quantum computational advantage</h4>
+        <p class="text-small">
+	  Recent experiments have performed quantum computations that seem to be infeasible to reproduce with even the world's most powerful supercomputers.
+          However, a subtlety of those experiments is that the output of the computations is also computationally hard to verify---for the largest computations, it is not possible to directly show that the results are actually correct.
+          Much of my PhD work focused on tests of quantum computational advantage that are efficiently verifiable by classical computers, while still remaining hard to spoof.
           <br>
-	  A new "proof of quantumness" protocol that uses cryptography to allow a quantum prover to demonstrate its computational capability to a classical verifier.
-	  We also describe a number of innovations to make the protocol more efficient in practice.
-          More recently we show that the protocol also has implications for certifiable randomness generation and more.
-	</p>
+          Some of my results include:
+        </p>
+        <ul class="text-small">
+          <li>I <a class="" href="https://arxiv.org/abs/1912.05547">broke a cryptographic proof of quantumness protocol that had stood for over a decade,</a> by discovering a classical algorithm to extract its secret key.</li>
+          <li>I then published a <a class="" href="https://arxiv.org/abs/2104.00687">new proof of quantumness protocol</a> for which spoofing the results is provably as hard as integer factorization, but which is more feasible than Shor's algorithm to implement in the near-term.</li>
+          <li>I worked with experimentalists to perform a <a class="" href="https://arxiv.org/abs/2112.05156">first small-scale demonstration</a> of that protocol, using mid-circuit measurements to implement a quantum interactive proof in practice.</li>
+          <li>I also worked with theory colleagues to <a class="" href="https://arxiv.org/abs/2303.01293">improve the protocol further and extend its applicability</a>, showing that it can also be used to constrain the behavior of an untrusted quantum device via cryptographically "certified qubits."</li>
+	</ul>
 
-        <h4 class="mb-2">Forging quantum data: classically defeating an IQP-based quantum test</h4>
-        <p class=""><a class="" href="https://arxiv.org/abs/1912.05547">arXiv:1912.05547</a><br>
-          Discovered a classical algorithm that breaks a cryptographic test of quantumness proposed in 2008.</p>
-
-        <h4 class="mb-2">dynamite: massively parallel numerical quantum dynamics</h4>
-        <p class="mb-4">
-	  <a href="https://dynamite.readthedocs.io/">dynamite.readthedocs.io</a>
-	  <br>
-	  Extremely fast time evolution and eigensolving for numerical quantum many-body spin chain physics, parallelized using MPI and CUDA.</p>
+        <h4 class="mb-2">Massively parallel numerical quantum dynamics</h4>
+        <p class="mb-4 text-small">
+	  Numerical study has proven to be one of the core tools for exploring the emergent properties of many-body quantum systems.
+          I am the main author of the <a href="https://dynamite.readthedocs.io/">dynamite library</a>, which provides extremely fast time evolution and eigensolving for numerical quantum many-body spin chain physics, parallelized using MPI and GPU acceleration.
+          The backend is written in C and CUDA C++; the library exposes a Python frontend with an intuitive interface for building and analyzing spin chain Hamiltonians.
+          The library is already being used by a number of labs; a list of publications using it can be found on the project's homepage.
+          I have published works that use dynamite to explore <a href="https://dx.doi.org/10.1103/PhysRevResearch.1.033202">Floquet prethermalization</a>, <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011043">time crystals in such a prethermal phase</a>, and <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.030602">many-body chaos in the Sachdev-Ye-Kitaev model</a>.
+          (The manuscript officially releasing dynamite is in preparation).
+          I also have <a href="https://www.doi.org/10.1145/3368474.3368497">published</a> <a href="https://doi.org/10.1177%2F10943420211060365">works</a> using the LOBPCG algorithm to drastically reduce memory usage for mid-spectrum eigensolving of large many-body quantum Hamiltonians, in particular to explore the phenomenon of many-body localization.
+        </p>
       </div>
     </div>
   </div>
@@ -128,16 +144,16 @@ http://www.templatemo.com/tm-514-magazee
     <div class="tm-flex-center p-5">
       <div class="tm-flex-center tm-flex-col">
         <h2 class="tm-text-color-primary">Outreach &amp; equity work</h2>
-        <p class="mb-4">Contact me or follow the links below if you're interested!</p>
+        <p class="mb-4">I was involved with the following organizations during graduate school; feel free to contact me or follow the links below if you're interested in getting involved!</p>
 
         <h4 class=" mt-2"><a href="https://igenspectrum.berkeley.edu/">IGenSpectrum</a></h4>
-        <p class="">Student group for the LGBTQ+ community in Berkeley Physics. I am an officer.</p>
+        <p class="">Student group for the LGBTQ+ community in Berkeley Physics. I served as an officer.</p>
 
         <h4 class=" mt-2"><a href="http://www.respectispartofresearch.com/">Respect is Part of Research</a></h4>
-        <p class="">Annual workshop aimed at improving department climate and preventing sexual violence and sexual harassment.</p>
+        <p class="">Annual workshop aimed at improving department climate and preventing sexual violence and sexual harassment. I served each year as a facilitator, and helping to organize the workshop.</p>
 
         <h4 class=" mt-2"><a href="https://crscience.org/outreach/basis/">Bay Area Scientists in Schools</a></h4>
-        <p class="">Teaching science lessons to elementary school students around the Bay Area. I have participated as a teacher, and a member of the Steering Committee.</p>
+        <p class="">Teaching science lessons to elementary school students around the Bay Area. I participated as a teacher, and a member of the Steering Committee.</p>
       </div>
     </div>
   </div>
@@ -156,101 +172,94 @@ http://www.templatemo.com/tm-514-magazee
 	  * = invited
 	</p>
 	  <div class="tm-align-left talk-list">
+	    <p class="text-small dedent">
+	      <strong>2023-07-14</strong>, <a href="https://simons.berkeley.edu/workshops/quantum-summer-cluster-workshop">Simons Institute Summer Cluster Workshop</a>. <br> <em>Lightning talk</em>. <br> "Fast integer multiplication with almost no ancillas." (20&nbsp;min) <a href="files/2023-07-14_Simons_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
 	    <p class="text-small dedent">
-	  <strong>2023-03-01</strong>, <a href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Guest seminar</em>. <br> "Cryptographic protocols for classically-verifiable quantum advantage and more." (1&nbsp;hr) <a href="files/2023-03-01-IBM_quantum_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	      <strong>2023-03-01</strong>, <a href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Guest seminar</em>. <br> "Cryptographic protocols for classically-verifiable quantum advantage and more." (1&nbsp;hr) <a href="files/2023-03-01-IBM_quantum_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2022-08-04</strong>, <a href="https://clear-project.org/pubscience/">CLEAR Project.</a> <br> <em>PubScience</em>. <br> "Quantum computing: how to do math with atoms, and how to trust the answers" (1&nbsp;hr) <a href="files/2022-08-04-PubScience-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2022-08-04</strong>, <a href="https://clear-project.org/pubscience/">CLEAR Project.</a> <br> <em>PubScience</em>. <br> "Quantum computing: how to do math with atoms, and how to trust the answers" (1&nbsp;hr) <a href="files/2022-08-04-PubScience-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2022-05-03</strong>, UC Berkeley.<br> <em>Guest lecture, CHEM 195/295: Special topics in Quantum Computing</em>. <br> "Classical verification of quantum computation." (1.5&nbsp;hr) <a href="files/2022-05-03-Special-Topics-QC-Lecture-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2022-05-03</strong>, UC Berkeley.<br> <em>Guest lecture, CHEM 195/295: Special topics in Quantum Computing</em>. <br> "Classical verification of quantum computation." (1.5&nbsp;hr) <a href="files/2022-05-03-Special-Topics-QC-Lecture-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2022-03-15</strong>, <a href="https://meetings.aps.org/Meeting/MAR22/Session/K36.4">APS March Meeting.</a> <br> <em>Quantum Digital and Analog Algorithms [Focus]</em>. <br> "Classical verification of quantum computational advantage." (30&nbsp;min) <a href="files/2022-03-15-APS-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2022-03-15</strong>, <a href="https://meetings.aps.org/Meeting/MAR22/Session/K36.4">APS March Meeting.</a> <br> <em>Quantum Digital and Analog Algorithms [Focus]</em>. <br> "Classical verification of quantum computational advantage." (30&nbsp;min) <a href="files/2022-03-15-APS-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	</div>
-	<div class="expand-container">
-	  <input type="checkbox" id="check_id">
-	  <label for="check_id"></label>
+	    <p class="text-small dedent">
+	      <strong>*2022-02-22</strong>, Harvard University. <br> <a href="http://cmt.harvard.edu/kidseminar.html"><em>CMT Kid's Seminar</em></a>. <br> "Classical verification of quantum computational advantage." (1&nbsp;hr) <a href="files/2022-02-22-CMT-kids-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	  <div>
-	    <div class="tm-align-left talk-list">
+	    <p class="text-small dedent">
+	      <strong>*2022-02-09</strong>, <a href="https://quantumsystemsaccelerator.org/">Quantum Systems Accelerator (QSA).</a> <br> <em>Science session</em>. <br> "Classical verification of quantum computational advantage." (15&nbsp;min) <a href="files/2022-02-09-QSA-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2022-02-22</strong>, Harvard University. <br> <a href="http://cmt.harvard.edu/kidseminar.html"><em>CMT Kid's Seminar</em></a>. <br> "Classical verification of quantum computational advantage." (1&nbsp;hr) <a href="files/2022-02-22-CMT-kids-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2021-11-10</strong>, <a href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Quantum computing seminar</em>. <br> "Classical verification of quantum computational advantage." (1&nbsp;hr) <a href="files/2021-11-10-IBM_quantum_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2022-02-09</strong>, <a href="https://quantumsystemsaccelerator.org/">Quantum Systems Accelerator (QSA).</a> <br> <em>Science session</em>. <br> "Classical verification of quantum computational advantage." (15&nbsp;min) <a href="files/2022-02-09-QSA-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2021-10-08</strong>, <a href="https://toc.csail.mit.edu/node/428">MIT cryptography and information security</a>. <br> <em>CIS seminar</em>. <br> "Classical verification of quantum computational advantage." (1.5&nbsp;hr) <a href="files/2021-10-08-MIT_crypto_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2021-11-10</strong>, <a href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Quantum computing seminar</em>. <br> "Classical verification of quantum computational advantage." (1&nbsp;hr) <a href="files/2021-11-10-IBM_quantum_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2021-09-29</strong>, <a href="https://ciqc.berkeley.edu/">NSF Challenge Institute for Quantum Computation (CIQC)</a>. <br> <em>Colloquium introduction</em>. <br> "Computability and complexity (introducing Jarrod McClean)." (20&nbsp;min) <a href="https://youtu.be/mD6m-XkDgTY">[video]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2021-10-08</strong>, <a href="https://toc.csail.mit.edu/node/428">MIT cryptography and information security</a>. <br> <em>CIS seminar</em>. <br> "Classical verification of quantum computational advantage." (1.5&nbsp;hr) <a href="files/2021-10-08-MIT_crypto_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2021-09-28</strong>, <a href="http://www.phys-info.org/">Physics of Information and Quantum Technologies, IT Lisbon.<a/> <br> <em>Group meeting</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2021-09-29</strong>, <a href="https://ciqc.berkeley.edu/">NSF Challenge Institute for Quantum Computation (CIQC)</a>. <br> <em>Colloquium introduction</em>. <br> "Computability and complexity (introducing Jarrod McClean)." (20&nbsp;min) <a href="https://youtu.be/mD6m-XkDgTY">[video]</a>
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2021-07-14</strong>, <a href="https://simons.berkeley.edu/">Simons Institute for the Theory of Computing.</a> <br> <em>Quantum Wave in Computing Reunion</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min) <a href="https://youtu.be/mD6m-XkDgTY">[video]</a>
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2021-09-28</strong>, <a href="http://www.phys-info.org/">Physics of Information and Quantum Technologies, IT Lisbon.<a/> <br> <em>Group meeting</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
-	</p>
+      	    <p class="text-small dedent">
+	      <strong>*2021-05-21</strong>, <a href="http://qis.mit.edu/">MIT Quantum Information Science group.</a> <br> <em>Quantum Information Processing Seminar</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2021-07-14</strong>, <a href="https://simons.berkeley.edu/">Simons Institute for the Theory of Computing.</a> <br> <em>Quantum Wave in Computing Reunion</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min) <a href="https://youtu.be/mD6m-XkDgTY">[video]</a>
-	</p>
+      	    <p class="text-small dedent">
+	      <strong>*2021-04-26</strong>, <a href="https://www.cs.utexas.edu/~qic/">UT Austin quantum information center.</a> <br> <em>Group meeting</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
+	    </p>
 
-      	<p class="text-small dedent">
-	  <strong>*2021-05-21</strong>, <a href="http://qis.mit.edu/">MIT Quantum Information Science group.</a> <br> <em>Quantum Information Processing Seminar</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
-	</p>
+      	    <p class="text-small dedent">
+	      <strong>*2021-04-23</strong>, <a href="http://aide-qc.org/">AIDE-QC</a>. <br> <em>All hands meeting</em>. <br> "Classical verification of quantum computational advantage." (20&nbsp;min)
+	    </p>
 
-      	<p class="text-small dedent">
-	  <strong>*2021-04-26</strong>, <a href="https://www.cs.utexas.edu/~qic/">UT Austin quantum information center.</a> <br> <em>Group meeting</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2021-04-21</strong>, <a href="https://quantumsystemsaccelerator.org/">Quantum Systems Accelerator (QSA).</a> <br> <em>Science session</em>. <br> "Classical verification of quantum computational advantage." (15&nbsp;min)
+	    </p>
 
-      	<p class="text-small dedent">
-	  <strong>*2021-04-23</strong>, <a href="http://aide-qc.org/">AIDE-QC</a>. <br> <em>All hands meeting</em>. <br> "Classical verification of quantum computational advantage." (20&nbsp;min)
-	</p>
+	    <p class="text-small dedent">
+	      <strong>2021-02-01</strong>, <a href="https://www.mcqst.de/qip2021/">Quantum Information Processing (QIP 2021).</a> <br> "An efficiently-verifiable test of quantum advantage." (poster)
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2021-04-21</strong>, <a href="https://quantumsystemsaccelerator.org/">Quantum Systems Accelerator (QSA).</a> <br> <em>Science session</em>. <br> "Classical verification of quantum computational advantage." (15&nbsp;min)
-	</p>
+	    <p class="text-small dedent">
+	      <strong>*2020-08-26</strong>, <a href="http://aide-qc.org/">AIDE-QC</a>. <br> <em>Verification and debugging thrust meeting</em>. <br> "Efficiently-verifiable quantum advantage."
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>2021-02-01</strong>, <a href="https://www.mcqst.de/qip2021/">Quantum Information Processing (QIP 2021).</a> <br> "An efficiently-verifiable test of quantum advantage." (poster)
-	</p>
+	    <p class="text-small dedent">
+	      <strong>2020-06-02</strong>, <a href="https://meetings.aps.org/Meeting/DAMOP20/Content/3872">APS DAMOP 2020.</a> <br> "An efficiently-verifiable test of quantum advantage." (poster)
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>*2020-08-26</strong>, <a href="http://aide-qc.org/">AIDE-QC</a>. <br> <em>Verification and debugging thrust meeting</em>. <br> "Efficiently-verifiable quantum advantage."
-	</p>
+	    <p class="text-small dedent">
+	      <strong>2019-05-30</strong>, <a href="https://meetings.aps.org/Meeting/DAMOP19/Content/3682">APS DAMOP 2019.</a> <br> "A numerical study of many-body localization using LOBPCG." (poster)
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>2020-06-02</strong>, <a href="https://meetings.aps.org/Meeting/DAMOP20/Content/3872">APS DAMOP 2020.</a> <br> "An efficiently-verifiable test of quantum advantage." (poster)
-	</p>
+	    <p class="text-small dedent">
+	      <strong>2018-03-08</strong>, <a href="https://meetings.aps.org/Meeting/MAR18/Content/3475">APS March Meeting 2018.</a> <br> "A long range, pre-thermal time crystal in one dimension." (15&nbsp;min)
+	    </p>
 
-	<p class="text-small dedent">
-	  <strong>2019-05-30</strong>, <a href="https://meetings.aps.org/Meeting/DAMOP19/Content/3682">APS DAMOP 2019.</a> <br> "A numerical study of many-body localization using LOBPCG." (poster)
-	</p>
-
-	<p class="text-small dedent">
-	  <strong>2018-03-08</strong>, <a href="https://meetings.aps.org/Meeting/MAR18/Content/3475">APS March Meeting 2018.</a> <br> "A long range, pre-thermal time crystal in one dimension." (15&nbsp;min)
-	</p>
-
-	<p class="text-small dedent">
-	  <strong>2017-06-07</strong>, <a href="https://meetings.aps.org/Meeting/DAMOP17/Content/3310">APS DAMOP 2017.</a> <br> "Simulation of quantum many-body dynamics for generic strongly-interacting systems." (poster)
-	</p>
-	    </div>
-	    </div>
-	</div>
+	    <p class="text-small dedent">
+	      <strong>2017-06-07</strong>, <a href="https://meetings.aps.org/Meeting/DAMOP17/Content/3310">APS DAMOP 2017.</a> <br> "Simulation of quantum many-body dynamics for generic strongly-interacting systems." (poster)
+	    </p>
+          </div>
       </div>
     </div>
   </div>
@@ -340,7 +349,6 @@ http://www.templatemo.com/tm-514-magazee
     <div class="tm-flex-center p-5">
       <div class="tm-flex-center tm-flex-col">
         <h2 class="tm-text-color-primary mb-4">Contact</h2>
-        <p class="mt-2"><strong>Office:</strong> 339 Physics South, UC Berkeley</p>
         <p class="mt-2"><strong>Email:</strong> gkm at berkeley dot edu</p>
       </div>
     </div>
