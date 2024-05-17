@@ -69,7 +69,7 @@ http://www.templatemo.com/tm-514-magazee
       </div>
 
       <p class="text-vsmall">
-	Last updated: Mar. 28, 2024
+	Last updated: May 16, 2024
       </p>
 
     </div>
@@ -88,16 +88,16 @@ http://www.templatemo.com/tm-514-magazee
           Some of the most important quantum algorithms, including Shor's algorithms for factoring and discrete logarithms, require performing multiplication on superpositions of integers.
           The standard algorithm for multiplication, known as the "Schoolbook algorithm," requires a number of operations that is quadratic in the length of the inputs.
           In the classical setting, faster algorithms have been known for decades, but building quantum circuits that implement them has been challenging---especially because the structure of the fast algorithms tends to require a large number of ancillas.
-          I designed a new algorithm for quantum multiplication which has a sub-quadratic gate count but uses as few as one or two total ancilla qubits.
+          I designed a <strong>new algorithm for quantum multiplication which simultaneously achieves a gate count nearly linear in the input size, yet requires zero ancilla qubits.</strong>
           Furthermore it moves a large part of the algorithmic complexity into classical pre-computation, reducing the circuit sizes in practice.
-          (Manuscript in preparation; see <a href="#talks">Talks</a> section for a talk I recently gave on these results.)
+          See paper <a class="" target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2403.18006">here</a>.
         </p>
 
         <h4 class="mb-2">Classically-verifiable quantum computational advantage</h4>
         <p class="text-small">
 	  Recent experiments have performed quantum computations that seem to be infeasible to reproduce with even the world's most powerful supercomputers.
           However, a subtlety of those experiments is that the output of the computations is also computationally hard to verify---for the largest computations, it is not possible to directly show that the results are actually correct.
-          Much of my PhD work focused on tests of quantum computational advantage that are efficiently verifiable by classical computers, while still remaining hard to spoof.
+          Much of my PhD work focused on <strong>tests of quantum computational advantage that are efficiently verifiable by classical computers, while still remaining hard to spoof.</strong>
           <br>
           Some of my results include:
         </p>
@@ -111,7 +111,7 @@ http://www.templatemo.com/tm-514-magazee
         <h4 class="mb-2">Massively parallel numerical quantum dynamics</h4>
         <p class="mb-4 text-small">
 	  Numerical study has proven to be one of the core tools for exploring the emergent properties of many-body quantum systems.
-          I am the main author of the <a href="https://dynamite.readthedocs.io/" target="_blank" rel="noopener noreferrer">dynamite library</a>, which provides extremely fast time evolution and eigensolving for numerical quantum many-body spin chain physics, parallelized using MPI and GPU acceleration.
+          I am the main author of the <a href="https://dynamite.readthedocs.io/" target="_blank" rel="noopener noreferrer">dynamite library</a>, which provides <strong>extremely fast time evolution and eigensolving for numerical quantum many-body spin chain physics, parallelized using MPI and GPU acceleration</strong>.
           The backend is written in C and CUDA C++; the library exposes a Python frontend with an intuitive interface for building and analyzing spin chain Hamiltonians.
           The library is already being used by a number of labs; a list of publications using it can be found on the project's homepage.
           I have published works that use dynamite to explore <a href="https://dx.doi.org/10.1103/PhysRevResearch.1.033202" target="_blank" rel="noopener noreferrer">Floquet prethermalization</a>, <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011043" target="_blank" rel="noopener noreferrer">time crystals in such a prethermal phase</a>, and <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.030602" target="_blank" rel="noopener noreferrer">many-body chaos in the Sachdev-Ye-Kitaev model</a>.
