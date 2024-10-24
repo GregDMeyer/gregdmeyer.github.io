@@ -191,6 +191,12 @@ window.Quarto = {
       </div>
     </div>
     
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">October 24, 2024</p>
+      </div>
+    </div>
       
     </div>
     
@@ -216,16 +222,29 @@ TL;DR
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For two states <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>, let <span class="math inline">\(c = \braket{a|b}/|\braket{a|b}|\)</span> and <span class="math inline">\(e = |c\ket{a} - \ket{b}|^2\)</span> (the norm squared of the difference vector between <span class="math inline">\(c\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>). Then the fidelity <span class="math inline">\(\mathcal{F} = |\braket{a|b}|^2\)</span> can be computed with good numerical precision as <span class="math display">\[1 - \mathcal{F} = e - e^2/4\]</span></p>
+<p>For two states <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>, let <span class="math inline">\(c = \braket{a|b}/|\braket{a|b}|\)</span> and <span class="math inline">\(e = |c\ket{a} - \ket{b}|^2\)</span> (the norm squared of the difference vector between <span class="math inline">\(c\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>). Then the fidelity <span class="math inline">\(\mathcal{F} = |\braket{a|b}|^2\)</span> can be computed with good numerical precision as <span class="math display">\[\mathcal{F} = (1 - e/2)^2\]</span></p>
 </div>
 </div>
-<p>Suppose we want to examine the fidelity <span class="math inline">\(\mathcal{F} = |\braket{a|b}|^2\)</span> of two quantum states <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>, stored as vectors of complex numbers. If <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span> are very close, it is more convenient to study the “error” <span class="math inline">\(\epsilon = 1-\mathcal{F}\)</span> rather than the fidelity itself. However, computing this value in the obvious way runs into problems with floating-point precision. Here’s a straightforward function computing <span class="math inline">\(1-\mathcal{F}\)</span>:</p>
-<div id="397ff548-795f-4f16-97f5-c76c3f201c5f" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error_naive(a, b):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> np.<span class="bu">abs</span>(np.vdot(a, b))<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Let’s try plotting the measured fidelity vs.&nbsp;actual fidelity, for a range of fidelities very close to 1:</p>
-<div id="94af671f-f95e-4ec8-a765-7c8818af27df" class="cell" data-execution_count="3">
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some authors, including Nielsen and Chuang in their textbook, define the fidelity as <span class="math inline">\(\mathcal{F}' = |\braket{a|b}|\)</span>, which is the square root of the definition used in this blog post. The technique presented here can easily be adapted to that definition, as <span class="math inline">\(\mathcal{F}' = 1-e/2\)</span>.</p>
+</div>
+</div>
+<p>Suppose we want to examine the fidelity <span class="math inline">\(\mathcal{F} = |\braket{a|b}|^2\)</span> of two quantum states <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>, stored as vectors of complex numbers. If <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span> are very close, computing this value in the obvious way runs into problems with floating-point precision, as we will find with this straightforward function for the fidelity:</p>
+<div id="397ff548-795f-4f16-97f5-c76c3f201c5f" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fidelity_naive(a, b):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">abs</span>(np.vdot(a, b))<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s try plotting the measured fidelity vs.&nbsp;actual fidelity, for a range of fidelities very close to 1. (Here we plot the difference from 1, so that we can see the results easily on a log plot).</p>
+<div id="94af671f-f95e-4ec8-a765-7c8818af27df" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -248,18 +267,18 @@ TL;DR
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a, b</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_error_measure(dimension, x_min, x_max, n_pts, error_funcs):</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_fidelity_measure(dimension, x_min, x_max, n_pts, fidelity_funcs):</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> generate_random_orthogonal_vectors(dimension)</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    pts <span class="op">=</span> np.geomspace(x_min, x_max, n_pts)</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> error_func <span class="kw">in</span> error_funcs:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fidelity_func <span class="kw">in</span> fidelity_funcs:</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        results <span class="op">=</span> []</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> target_err <span class="kw">in</span> pts:</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            c <span class="op">=</span> np.sqrt(target_err)<span class="op">*</span>b <span class="op">+</span> np.sqrt(<span class="dv">1</span><span class="op">-</span>target_err)<span class="op">*</span>a</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            results.append(error_func(a, c))</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            results.append(fidelity_func(a, c))</span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        plt.loglog(pts, results, label<span class="op">=</span>error_func.<span class="va">__name__</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        plt.loglog(pts, <span class="dv">1</span><span class="op">-</span>np.array(results), label<span class="op">=</span><span class="vs">r"$1 - $"</span><span class="op">+</span>fidelity_func.<span class="va">__name__</span>)</span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    plt.loglog(pts, pts, color<span class="op">=</span><span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, label<span class="op">=</span><span class="vs">r'$1 - \mathcal</span><span class="sc">{F}</span><span class="vs">$'</span>)</span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
@@ -270,12 +289,12 @@ TL;DR
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plot_error_measure(</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plot_fidelity_measure(</span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    dimension<span class="op">=</span><span class="dv">2</span><span class="op">**</span><span class="dv">20</span>, </span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    x_min<span class="op">=</span><span class="fl">1E-14</span>, </span>
 <span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    x_max<span class="op">=</span><span class="dv">1</span>, </span>
 <span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    n_pts<span class="op">=</span><span class="dv">21</span>, </span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    error_funcs<span class="op">=</span>[error_naive]</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    fidelity_funcs<span class="op">=</span>[fidelity_naive]</span>
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
@@ -286,38 +305,40 @@ TL;DR
 </div>
 </div>
 </div>
-<p>The reason for the discrepancy is that in the inner product, we are summing values <span class="math inline">\(a_i^\dagger b_i\)</span> that have magnitude <span class="math inline">\(\mathcal{O}(1/d)\)</span>, but the “important part” of each term (that prevents the sum from being exactly 1) is of order <span class="math inline">\(\mathcal{O}(\epsilon/d)\)</span>. If <span class="math inline">\(\epsilon\)</span> is very small, this “content” will be lost to floating point errors. Instead, we’d like to figure out a way to sum that content we care about directly.</p>
+<p>The reason for the discrepancy is that in the inner product, we are summing values <span class="math inline">\(a_i^* b_i\)</span> that have magnitude <span class="math inline">\(\mathcal{O}(1/d)\)</span>, but the “important part” of each term (that prevents the sum from being exactly 1) is of order <span class="math inline">\(\mathcal{O}(\epsilon/d)\)</span>, where <span class="math inline">\(\epsilon = 1-\mathcal{F}\)</span>. If <span class="math inline">\(\epsilon\)</span> is very small, this “content” will be lost to floating point errors. Instead, we’d like to figure out a way to sum that content we care about directly.</p>
 <p>Consider the following fact: <span class="math display">\[
 |\ket{a}-\ket{b}|^2 = 2 - 2\mathrm{Re}\left[ \braket{a | b} \right]
-\]</span> So, the square of the norm of the difference gives the ~vibes~ of <span class="math inline">\(\sqrt{\epsilon} = |\braket{a|b}|\)</span>, except it cares about the relative phase between <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>. The upside is that it should be numerically stable to compute, because the elements of the difference vector will be of order <span class="math inline">\(\mathcal{O}(\epsilon/d)\)</span>. The key idea is that we can use it to measure <span class="math inline">\(\epsilon\)</span> if we ensure there is no relative phase between <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>.</p>
+\]</span> So, the square of the norm of the difference gives the ~vibes~ of <span class="math inline">\(1 - \left|\braket{a|b}\right|\)</span>, except it cares about the relative phase between <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>. The upshot is that it should be numerically stable to compute, because the elements of the difference vector will be of order <span class="math inline">\(\mathcal{O}(\epsilon/d)\)</span>. The key idea is that we can use it to measure <span class="math inline">\(|\braket{a|b}|\)</span> if we ensure there is no relative phase between <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>.</p>
 <p>Let <span class="math inline">\(c = \braket{a|b}/|\braket{a|b}|\)</span>. Then by construction <span class="math inline">\(\braket{c a | b} = |\braket{a | b}| = \mathrm{Re}\left[ \braket{c a | b} \right]\)</span>. Combining this with the above, we may define <span class="math inline">\(e = |c \ket{a}-\ket{b}|^2\)</span> and then: <span class="math display">\[
 |\braket{a | b}| = 1 - e/2
 \]</span> and thus <span class="math display">\[
-1-\mathcal{F} = 1 - |\braket{a|b}|^2 = e - e^2/4
+\mathcal{F} = |\braket{a|b}|^2 = (1 - e/2)^2
+\]</span> or, if we’re interested in the difference from 1, <span class="math display">\[
+1-\mathcal{F} = e - e^2/4
 \]</span> This is an exact expression (we didn’t use any approximations to get it), but it also will not suffer from numerical instability for values close to zero.</p>
 <p>Pretty cool! Let’s try it:</p>
-<div id="2bcad248-6ebc-4856-b309-7871ab7c28a3" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error_precise(a, b):</span>
+<div id="2bcad248-6ebc-4856-b309-7871ab7c28a3" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fidelity_precise(a, b):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    inner_prod <span class="op">=</span> np.vdot(a, b)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to avoid division by zero</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> inner_prod <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">1.0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.0</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> inner_prod <span class="op">/</span> np.<span class="bu">abs</span>(inner_prod)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> c<span class="op">*</span>a <span class="op">-</span> b</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> np.real(np.vdot(diff, diff))  <span class="co"># imag part is zero</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> e <span class="op">-</span> e<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="dv">1</span><span class="op">-</span>e<span class="op">/</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d2e86ca1-ed2c-4ad5-a9ae-66b61349eeb8" class="cell" data-execution_count="7">
+<div id="d2e86ca1-ed2c-4ad5-a9ae-66b61349eeb8" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_error_measure(</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_fidelity_measure(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    dimension<span class="op">=</span><span class="dv">2</span><span class="op">**</span><span class="dv">20</span>, </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x_min<span class="op">=</span><span class="fl">1E-14</span>, </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    x_max<span class="op">=</span><span class="dv">1</span>, </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    n_pts<span class="op">=</span><span class="dv">21</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    error_funcs<span class="op">=</span>[error_naive, error_precise]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    fidelity_funcs<span class="op">=</span>[fidelity_naive, fidelity_precise]</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
