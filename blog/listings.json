@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/bugout/index.html",
       "/posts/pdf_python/index.html",
       "/posts/stable_fidelity/index.html"
     ]
