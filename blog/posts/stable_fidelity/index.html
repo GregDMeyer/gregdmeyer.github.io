@@ -219,19 +219,6 @@ TL;DR
 <p>For two states <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>, let <span class="math inline">\(c = \braket{a|b}/|\braket{a|b}|\)</span> and <span class="math inline">\(e = |c\ket{a} - \ket{b}|^2\)</span> (the norm squared of the difference vector between <span class="math inline">\(c\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>). Then the fidelity <span class="math inline">\(\mathcal{F} = |\braket{a|b}|^2\)</span> can be computed with good numerical precision as <span class="math display">\[1 - \mathcal{F} = e - e^2/4\]</span></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>I doubt I’m the first person to come up with this trick, but I wasn’t able to find it anywhere on the internet when I needed it. Let me know if you know a reference for it!</p>
-</div>
-</div>
 <p>Suppose we want to examine the fidelity <span class="math inline">\(\mathcal{F} = |\braket{a|b}|^2\)</span> of two quantum states <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span>, stored as vectors of complex numbers. If <span class="math inline">\(\ket{a}\)</span> and <span class="math inline">\(\ket{b}\)</span> are very close, it is more convenient to study the “error” <span class="math inline">\(\epsilon = 1-\mathcal{F}\)</span> rather than the fidelity itself. However, computing this value in the obvious way runs into problems with floating-point precision. Here’s a straightforward function computing <span class="math inline">\(1-\mathcal{F}\)</span>:</p>
 <div id="397ff548-795f-4f16-97f5-c76c3f201c5f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error_naive(a, b):</span>
