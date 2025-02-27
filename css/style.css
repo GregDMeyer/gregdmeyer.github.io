@@ -26,6 +26,13 @@ a { color: #005687; }
     height: 300px;
 }
 
+.h-divider {
+    height: 2px;
+    background-color: #BBB;
+    width: 100%;
+    border: 0;
+}
+
 .tm-site-name {
     font-size: 2.5rem;
 }
