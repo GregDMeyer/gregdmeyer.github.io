@@ -3,7 +3,7 @@ body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-size: 18px;
     color: #eee;
-    background-color: #333;
+    background-color: #222;
 }
 
 p, q { line-height: 1.2; }
@@ -53,7 +53,7 @@ a:hover { color: #B6DFF7 }
 }
 
 .tm-section {
-    background-color: #484848;
+    background-color: #333;
 }
 
 .tm-section,
@@ -94,8 +94,8 @@ a:hover { color: #B6DFF7 }
 }
 
 .btn-primary {
-    background: #106393;
-    border-color: #106393;
+    background: #18618C;
+    border-color: #18618C;
 }
 
 .btn-secondary {
@@ -115,8 +115,8 @@ a:hover { color: #B6DFF7 }
     border-color: #147cb8;
 }
 
-.tm-bg-color-primary { background-color: #106393; }
-.tm-bg-color-secondary { background-color: #484848; }
+.tm-bg-color-primary { background-color: #18618C; }
+.tm-bg-color-secondary { background-color: #333; }
 .tm-bg-color-gray { background-color: #ffffffdd; }
 .tm-text-color-primary { color: #91CFF3; }
 .tm-text-color-white { color: #eee; }
