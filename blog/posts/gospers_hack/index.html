@@ -242,41 +242,53 @@ TL;DR
 ...10000011</code></pre>
 <p><code>next_bitstring</code> called on the first value should return the second one. Let’s take a closer look at what’s going on here.</p>
 <p>In general, any bitstring with weight <span class="math inline">\(k \geq 1\)</span> ends in a block of zeros of length <span class="math inline">\(t_0 \geq 0\)</span>. Immediately to the left of that is a block of ones of length <span class="math inline">\(t_1 \geq 1\)</span>. For the first value above, <span class="math inline">\(t_0 = 4\)</span> and <span class="math inline">\(t_1 = 3\)</span>. What we need to do is scoot the 1 at position <span class="math inline">\(t_0 + t_1 - 1\)</span> to the left by one position, and then move the remaining <span class="math inline">\(t_1 - 1\)</span> 1s in the block all the way to the right. Here is some Julia code that does that in a straightforward (ish) way:</p>
-<div id="dc69291a" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">next_bitstring_simple</span>(x)</span>
+<div id="95a68895" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">next_bitstring_simple</span>(x<span class="op">::</span><span class="dt">T</span>) <span class="kw">where</span> T</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># count how long the string of zeros on the right is</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    t0 <span class="op">=</span> <span class="fu">trailing_zeros</span>(x)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># increment by 1 at position t0, which maps e.g. 011100 -&gt; 100000</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (note: in Julia one(x) means 1 of the same type as x)</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    x <span class="op">+=</span> <span class="fu">one</span>(x) <span class="op">&lt;&lt;</span> t0</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># now trailing_zeros(x) = t0 + t1, so it's easy to compute t1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    t1 <span class="op">=</span> <span class="fu">trailing_zeros</span>(x) <span class="op">-</span> t0</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># set the bottom t1-1 bits to 1</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    x <span class="op">|=</span> (<span class="fu">one</span>(x) <span class="op">&lt;&lt;</span> (t1<span class="op">-</span><span class="fl">1</span>)) <span class="op">-</span> <span class="fu">one</span>(x)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (in Julia, the value of the last expression is automatically returned)</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    x <span class="op">+=</span> <span class="fu">T</span>(<span class="fl">1</span>) <span class="op">&lt;&lt;</span> t0</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># now trailing_zeros(x) = t0 + t1, so it's easy to compute t1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    t1 <span class="op">=</span> <span class="fu">trailing_zeros</span>(x) <span class="op">-</span> t0</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># set the bottom t1-1 bits to 1</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    x <span class="op">|=</span> (<span class="fu">T</span>(<span class="fl">1</span>) <span class="op">&lt;&lt;</span> (t1<span class="op">-</span><span class="fl">1</span>)) <span class="op">-</span> <span class="fl">1</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (in Julia, the value of the last expression is automatically returned)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Julia, the syntax <code>function fn(x::T) where T</code> allows us to access the type of the input <code>x</code> inside of the function definition.</p>
+</div>
 </div>
 <p>Let’s try it!</p>
-<div id="6a2f5533" class="cell" data-execution_count="2">
+<div id="1cad4992" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>(Hidden: some code to make integers print in binary)</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Base</span>.<span class="fu">show</span>(io<span class="op">::</span><span class="dt">IO</span>, x<span class="op">::</span><span class="dt">UInt8</span>) <span class="op">=</span> <span class="fu">print</span>(io, <span class="fu">string</span>(x; base<span class="op">=</span><span class="fl">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="ad1641cf" class="cell" data-execution_count="3">
+<div id="94170534" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">next_bitstring_simple</span>(<span class="bn">0b01110000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>10000011</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>131</code></pre>
 </div>
 </div>
 <p>Woohoo! It worked!</p>
 <p>Now let’s look at an alternative way to do this, which is the one you might find if you search the web. It’s an absolute classic in the history of bit hacking called <em>Gosper’s hack</em>, which follows the same broad plan as our function above but uses only standard arithmetic functions and bitwise operations. It uses two main observations:</p>
 <ul>
-<li><code>c = x &amp; -x</code> is equivalent to <code>c = one(x) &lt;&lt; trailing_zeros(x)</code></li>
+<li><code>c = x &amp; -x</code> is equivalent to <code>c = 1 &lt;&lt; trailing_zeros(x)</code></li>
 <li>Letting <code>r = x + c</code>, the expression <code>((r ⊻ x) &gt;&gt; 2) ÷ c</code> yields a bitstring with the bottom <span class="math inline">\(t_1-1\)</span> bits set to 1</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -293,7 +305,7 @@ Note
 </div>
 </div>
 <p>If you want to dive more into <em>why</em> those expressions work, check out <a href="https://programmingforinsomniacs.blogspot.com/2018/03/gospers-hack-explained.html">this blog post</a>. Let’s put these ideas together:</p>
-<div id="e9f54b28" class="cell" data-execution_count="4">
+<div id="361a8557" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">next_bitstring_gosper</span>(x)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> x <span class="op">&amp;</span> <span class="op">-</span>x  <span class="co"># equivalent to: c = 1 &lt;&lt; trailing_zeros(x)</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> x <span class="op">+</span> c   <span class="co"># maps e.g. 011100 -&gt; 100000, as in next_bitstring_simple</span></span>
@@ -314,20 +326,20 @@ Note
 </div>
 </div>
 <p>Now we can compare the performance of these two functions:</p>
-<div id="0dfc5047" class="cell" data-execution_count="5">
+<div id="7ac742b7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>(Hidden: some code setting up a benchmark)</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">run_benchmark</span>(next_bitstring_fn, T, n, k)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"</span><span class="sc">$</span>(<span class="fu">string</span>(next_bitstring_fn))<span class="st"> "</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run once first to compile the function</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">iterate_all_bitstrings</span>(next_bitstring_fn, <span class="fu">one</span>(T), <span class="fl">8</span>, <span class="fl">4</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run once first to precompile the function</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">iterate_all_bitstrings</span>(next_bitstring_fn, T, <span class="fl">8</span>, <span class="fl">4</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@time</span> result <span class="op">=</span> <span class="fu">iterate_all_bitstrings</span>(next_bitstring_fn, <span class="fu">one</span>(T), n, k)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@time</span> result <span class="op">=</span> <span class="fu">iterate_all_bitstrings</span>(next_bitstring_fn, T, n, k)</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@assert</span> result <span class="op">==</span> ((<span class="fu">one</span>(T) <span class="op">&lt;&lt;</span> k) <span class="op">-</span> <span class="fu">one</span>(T)) <span class="op">&lt;&lt;</span> (n<span class="op">-</span>k)</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">iterate_all_bitstrings</span>(next_bitstring_fn, <span class="op">::</span><span class="dt">T</span>, n, k) <span class="kw">where</span> T</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">iterate_all_bitstrings</span>(next_bitstring_fn, <span class="op">::</span><span class="dt">Type{T}</span>, n, k) <span class="kw">where</span> T</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> (<span class="fu">one</span>(T) <span class="op">&lt;&lt;</span> k) <span class="op">-</span> <span class="fu">one</span>(T)</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>(<span class="fu">binomial</span>(n, k)<span class="op">-</span><span class="fl">1</span>)</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="fu">next_bitstring_fn</span>(x)</span>
@@ -336,7 +348,7 @@ Note
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="bbb29ae9" class="cell" data-execution_count="6">
+<div id="2da76ea4" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="fl">48</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="fl">8</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -345,8 +357,8 @@ Note
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">run_benchmark</span>(next_bitstring_simple, <span class="dt">UInt64</span>, n, k)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">run_benchmark</span>(next_bitstring_gosper, <span class="dt">UInt64</span>, n, k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>next_bitstring_simple   2.438843 seconds (1 allocation: 16 bytes)
-next_bitstring_gosper   2.825358 seconds (1 allocation: 16 bytes)</code></pre>
+<pre><code>next_bitstring_simple   2.553637 seconds (1 allocation: 16 bytes)
+next_bitstring_gosper   2.957920 seconds (1 allocation: 16 bytes)</code></pre>
 </div>
 </div>
 <p>What the heck, the simple one is faster! So why is everyone posting on the internet about the Gosper one?</p>
@@ -371,7 +383,7 @@ Note
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    tmp <span class="op">=</span> x</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this line maps e.g. ...011100 to ...100000</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># x &amp; -x is equivalent to one(x) &lt;&lt; t0, but faster</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># x &amp; -x is equivalent to T(1) &lt;&lt; t0, but faster</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    x <span class="op">+=</span> (x <span class="op">&amp;</span> <span class="op">-</span>x)</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tmp ⊻ x is a block of t1+1 ones starting at t0</span></span>
@@ -381,7 +393,7 @@ Note
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="fu">run_benchmark</span>(next_bitstring_fast, <span class="dt">UInt64</span>, n, k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>next_bitstring_fast   1.060805 seconds (1 allocation: 16 bytes)</code></pre>
+<pre><code>next_bitstring_fast   1.110492 seconds (1 allocation: 16 bytes)</code></pre>
 </div>
 </div>
 <p>Woohoo! It’s more than twice as fast as either of the other implementations!</p>
@@ -403,7 +415,7 @@ Note
 <p>Compared to <code>next_bitstring_simple</code>, we’ve made essentially two changes in <code>next_bitstring_fast</code>. Let’s look at both of them.</p>
 <p>First, we replaced <code>1 &lt;&lt; t0</code> with <code>x &amp; -x</code>. Interpreted literally, it’s not clear at all why these should perform differently: they both seem to require two operations. In the first, it’s loading the constant 1 and then shifting left; in the second, it’s negating <code>x</code> and then performing a logical AND.</p>
 <p>For the bit shift one (using a mask of <code>63</code> as described in the note above, so Julia compiles it down to just the left shift instruction):</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">code_native</span>(t0 <span class="op">-&gt;</span> <span class="fu">one</span>(<span class="dt">UInt64</span>) <span class="op">&lt;&lt;</span> (t0 <span class="op">&amp;</span> <span class="fl">63</span>), (<span class="dt">Int</span>,))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">code_native</span>(t0 <span class="op">-&gt;</span> <span class="fu">UInt64</span>(<span class="fl">1</span>) <span class="op">&lt;&lt;</span> (t0 <span class="op">&amp;</span> <span class="fl">63</span>), (<span class="dt">Int</span>,))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>yields the assembly (setup and cleanup omitted)</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">mov</span>     <span class="kw">eax</span><span class="op">,</span> <span class="dv">1</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">shlx</span>    <span class="kw">rax</span><span class="op">,</span> <span class="kw">rax</span><span class="op">,</span> <span class="kw">rdi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -414,7 +426,7 @@ Note
 <div class="sourceCode" id="cb16"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">blsi</span>    <span class="kw">rax</span><span class="op">,</span> <span class="kw">rdi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Whoah, what the heck is <code>blsi</code>? It turns out there is a single x86 instruction “Extract Lowest Set Bit” for the whole operation we were trying to do here! So, the difference between the two implementations is that the compiler recognizes that <code>x &amp; -x</code> corresponds to the <code>blsi</code> instruction and just emits that. The compiler couldn’t figure out that <code>1 &lt;&lt; t0</code> was actually doing the same thing.</p>
 <p>Now let’s look at the second replacement we made in <code>next_bitstring_fast</code>. It’s the part where we set the low <span class="math inline">\(t_1 - 1\)</span> bits to 1. Originally we had <code>x |= (1 &lt;&lt; (trailing_zeros(x)-t0-1)) - 1</code>. Including a mask on the shift again to make the compiler happy, we get the following.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">code_native</span>((x, t0) <span class="op">-&gt;</span> x <span class="op">|</span> (<span class="fl">1</span> <span class="op">&lt;&lt;</span> (<span class="fl">63</span> <span class="op">&amp;</span> (<span class="fu">trailing_zeros</span>(x)<span class="op">-</span>t0<span class="op">-</span><span class="fl">1</span>))) <span class="op">-</span> <span class="fl">1</span>, (<span class="dt">UInt64</span>, <span class="dt">Int</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">code_native</span>((x, t0) <span class="op">-&gt;</span> x <span class="op">|</span> ((<span class="fu">UInt64</span>(<span class="fl">1</span>) <span class="op">&lt;&lt;</span> (<span class="fl">63</span> <span class="op">&amp;</span> (<span class="fu">trailing_zeros</span>(x)<span class="op">-</span>t0<span class="op">-</span><span class="fl">1</span>))) <span class="op">-</span> <span class="fl">1</span>), (<span class="dt">UInt64</span>, <span class="dt">Int</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>yields</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode asm code-with-copy"><code class="sourceCode fasm"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">tzcnt</span>   <span class="kw">rax</span><span class="op">,</span> <span class="kw">rdi</span>                <span class="co">; rax = trailing_zeros(x)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">not</span>     <span class="kw">esi</span>                     <span class="co">; t0 = ~t0, equiv to -t0-1</span></span>
@@ -444,7 +456,7 @@ Note
 <section id="getting-good-performance-on-arbitrary-precision-integers" class="level2">
 <h2 class="anchored" data-anchor-id="getting-good-performance-on-arbitrary-precision-integers">Getting good performance on arbitrary precision integers</h2>
 <p>Let’s see what happens when we apply these functions to Julia’s arbitrary precision integer type, <code>BigInt</code>:</p>
-<div id="b02a61bf" class="cell" data-execution_count="8">
+<div id="2dc28c45" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test smaller since BigInt is slower</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="fl">36</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="fl">6</span></span>
@@ -453,13 +465,13 @@ Note
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">run_benchmark</span>(next_bitstring_gosper, <span class="dt">BigInt</span>, n, k)</span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">run_benchmark</span>(next_bitstring_fast, <span class="dt">BigInt</span>, n, k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>next_bitstring_simple   1.791677 seconds (29.22 M allocations: 564.698 MiB, 35.98% gc time)
-next_bitstring_gosper   1.981467 seconds (29.22 M allocations: 549.837 MiB, 34.83% gc time)
-next_bitstring_fast   1.558973 seconds (25.32 M allocations: 475.535 MiB, 32.97% gc time)</code></pre>
+<pre><code>next_bitstring_simple   1.495519 seconds (25.32 M allocations: 475.535 MiB, 31.67% gc time)
+next_bitstring_gosper   1.803830 seconds (29.22 M allocations: 549.837 MiB, 30.82% gc time)
+next_bitstring_fast   1.492630 seconds (25.32 M allocations: 475.535 MiB, 30.78% gc time)</code></pre>
 </div>
 </div>
 <p><code>next_bitstring_fast</code> is still the fastest, but not by much. We see from the output that it is doing a ton of memory allocations—what gives? Because <code>BigInt</code> is an arbitrary precision type, it is allocated on the heap; the way these functions are written, a new <code>BigInt</code> is being allocated for every new value produced during the computation! To get good performance we should instead work in-place as much as possible. Doing so involves digging under the hood a bit to access the in-place multi-precision arithmetic operations:</p>
-<div id="d776c05e" class="cell" data-execution_count="9">
+<div id="a974c111" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the module containing low-level operations on BigInt</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MPZ <span class="op">=</span> <span class="bu">Base</span>.GMP.MPZ</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -485,7 +497,7 @@ next_bitstring_fast   1.558973 seconds (25.32 M allocations: 475.535 MiB, 32.97%
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="fu">preallocated_benchmark</span>(n, k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#23   0.138106 seconds (11 allocations: 216 bytes)</code></pre>
+<pre><code>#11   0.141128 seconds (9 allocations: 176 bytes)</code></pre>
 </div>
 </div>
 <p>Woohoo! That’s like 10x faster than any of the other functions were when applied to the type <code>BigInt</code>, and it is clear that no new memory is being allocated on each iteration.</p>
