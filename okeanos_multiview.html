@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Okeanos Multiview</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .top-row {
+      display: flex;
+      flex: 1;
+    }
+    .top-row iframe {
+      width: 50%;
+      height: 100%;
+      border: none;
+    }
+    .bottom-video {
+      flex: 1;
+    }
+    .bottom-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-row">
+      <iframe src="https://www.youtube-nocookie.com/embed/2DAjh5pwMtM" allowfullscreen></iframe>
+      <iframe src="https://www.youtube-nocookie.com/embed/KC_IilWGl9E" allowfullscreen></iframe>
+    </div>
+    <div class="bottom-video">
+      <iframe src="https://www.youtube.com/embed/hs9Bu-4wOeo" allowfullscreen></iframe>
+    </div>
+  </div>
+</body>
+</html>
