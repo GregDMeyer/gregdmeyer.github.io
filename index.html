@@ -90,8 +90,13 @@ http://www.templatemo.com/tm-514-magazee
         <h4 class="mb-2">Arithmetic and number theory</h4>
         <p class="text-small">
           Recently, I have been excited about creating <strong>new quantum circuits for arithmetic, factoring, and related tasks,</strong> with an emphasis on reducing qubit counts.
-          Some of my results in this area include <a class="" href="https://arxiv.org/abs/2403.18006" target="_blank" rel="noopener noreferrer">an entirely in-place (zero ancillas) algorithm for fast multiplication on quantum computers</a> and <a class="" href="https://arxiv.org/abs/2412.12558" target="_blank" rel="noopener noreferrer">a new quantum factoring algorithm that uses sublinear space (and depth)</a>&mdash;that is, asymptotically fewer qubits than the number of bits in the value being factored.
-          Soon I am also releasing a new logarithmic-depth QFT construction with extremely low ancilla count, which can be used with my fast multiplier to implement Shor's algorithm in near-linear depth using roughly 2n total qubits (see my poster on Thursday at QIP 2025!).
+          Some results in this area include:
+        </p>
+        <ul class="text-small">
+        <li><a class="" href="https://arxiv.org/abs/2403.18006" target="_blank" rel="noopener noreferrer">an entirely in-place (zero ancillas) algorithm for fast multiplication on quantum computers</a></li>
+        <li><a class="" href="https://arxiv.org/abs/2505.00701" target="_blank" rel="noopener noreferrer">a logarithmic-depth quantum Fourier transform using few to zero ancillas</a>, which combined with the previous result yields a circuit for Shor's algorithm in near-linear depth using roughly 2n total qubits</li>
+        <li><a class="" href="https://arxiv.org/abs/2412.12558" target="_blank" rel="noopener noreferrer">a new quantum factoring algorithm for integers of a certain form, which uses sublinear space (and depth)</a>&mdash;that is, asymptotically fewer qubits than the number of bits in the value being factored</li>
+        </ul>
         </p>
 
         <h4 class="mb-2">Classically-verifiable quantum computational advantage</h4>
@@ -361,6 +366,8 @@ http://www.templatemo.com/tm-514-magazee
         <h4>
           Articles
         </h4>
+	<p class="mt-2">GDKM, J. Blue, T. Bergamaschi, C. Gidney, I. Chuang. <strong>A log-depth quantum Fourier transform that rarely needs ancillas.</strong> arXiv:2505.00701 <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2505.00701">[arxiv]</a>
+
 	<p class="mt-2"><sup>&dagger;</sup> GDKM, S. Ragavan, V. Vaikuntanathan, K. Van Kirk. <strong>The Jacobi Factoring Circuit: Quantum Factoring with Near-Linear Gates and Sublinear Space and Depth.</strong> (To appear at STOC 2025). <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2412.12558">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://eprint.iacr.org/2024/2034">[eprint]</a></p>
 
 	<p class="mt-2">GDKM, N. Yao. <strong>Fast quantum integer multiplication with zero ancillas.</strong> arXiv:2403.18006 <a class="" target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2403.18006">[arxiv]</a></p>
