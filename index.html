@@ -44,7 +44,7 @@ http://www.templatemo.com/tm-514-magazee
       <div class="tm-flex-center tm-flex-col">
         <img src="img/headshot.jpg" alt="photo of face" class="rounded-circle mb-4 tm-md-align-center main-photo">
         <h3 class="tm-text-color-white tm-site-name txt-centered">Greg Kahanamoku-Meyer</h3>
-        <p class="text-small tm-text-color-subwhite">maiden name: Greg Meyer</p>
+        <p class="text-small tm-text-color-subwhite">also known as: Greg Meyer</p>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@ http://www.templatemo.com/tm-514-magazee
       </div>
 
       <p class="text-vsmall">
-	Last updated: May 24, 2025
+	Last updated: Oct. 21, 2025
       </p>
 
     </div>
@@ -87,42 +87,18 @@ http://www.templatemo.com/tm-514-magazee
       <div class="tm-flex-center tm-flex-col">
         <h2 class="tm-text-color-primary mb-4">Research directions</h2>
 
-        <h4 class="mb-2">Arithmetic and number theory</h4>
         <p class="text-small">
-          Recently, I have been excited about creating <strong>new quantum circuits for arithmetic, factoring, and related tasks,</strong> with an emphasis on reducing qubit counts.
-          Some results in this area include:
-        </p>
-        <ul class="text-small">
-        <li><a class="" href="https://arxiv.org/abs/2403.18006" target="_blank" rel="noopener noreferrer">an entirely in-place (zero ancillas) algorithm for fast multiplication on quantum computers</a></li>
-        <li><a class="" href="https://arxiv.org/abs/2505.00701" target="_blank" rel="noopener noreferrer">a logarithmic-depth quantum Fourier transform using few to zero ancillas</a>, which combined with the previous result yields a circuit for Shor's algorithm in near-linear depth using roughly 2n total qubits</li>
-        <li><a class="" href="https://arxiv.org/abs/2412.12558" target="_blank" rel="noopener noreferrer">a new quantum factoring algorithm for integers of a certain form, which uses sublinear space (and depth)</a>&mdash;that is, asymptotically fewer qubits than the number of bits in the value being factored</li>
-        </ul>
+          Recently I have been focused on <strong>reducing the cost of quantum algorithms for factoring and related tasks</strong>, both by reducing the cost of basic subroutines like <a class="" href="https://arxiv.org/abs/2403.18006" target="_blank" rel="noopener noreferrer">multiplication</a> and the <a class="" href="https://arxiv.org/abs/2505.00701" target="_blank" rel="noopener noreferrer">quantum Fourier transform</a>; and by making improvements at the algorithmic level like <a class="" href="https://arxiv.org/abs/2412.12558" target="_blank" rel="noopener noreferrer">streaming</a > to reduce qubit counts to even less than the length of the classical input, and <a class="" href="https://arxiv.org/abs/2510.08432" target="_blank" rel="noopener noreferrer">using measurement tricks</a> to more efficiently compute irreversible functions on a quantum computer.
         </p>
 
-        <h4 class="mb-2">Classically-verifiable quantum computational advantage</h4>
         <p class="text-small">
-	  Recent experiments have performed quantum computations that seem to be infeasible to reproduce with even the world's most powerful supercomputers.
-          However, a subtlety of those experiments is that the output of the computations is also computationally hard to verify&mdash;for the largest computations, it is not possible to directly show that the results are actually correct.
-          Much of my PhD work focused on <strong>tests of quantum computational advantage that are efficiently verifiable by classical computers, while still remaining hard to spoof.</strong>
-          <br>
-          Some of my results include:
+          I also work on <a class="" href="https://arxiv.org/abs/2104.00687" target="_blank" rel="noopener noreferrer">making</a>, <a class="" href="https://arxiv.org/abs/1912.05547" target="_blank" rel="noopener noreferrer">breaking,</a> and <a class="" href="https://arxiv.org/abs/2303.01293" target="_blank" rel="noopener noreferrer">analyzing</a> <strong>proofs of quantumness</strong>&mdash;protocols by which a <a class="" href="https://arxiv.org/abs/2112.05156" target="_blank" rel="noopener noreferrer">resource-constrained quantum device</a> can convince a skeptical classical verifier that it is indeed doing something quantum.
         </p>
-        <ul class="text-small">
-          <li>I <a class="" href="https://arxiv.org/abs/1912.05547" target="_blank" rel="noopener noreferrer">broke a cryptographic proof of quantumness protocol that had stood for over a decade,</a> by discovering a classical algorithm to extract its secret key.</li>
-          <li>I then published a <a class="" href="https://arxiv.org/abs/2104.00687" target="_blank" rel="noopener noreferrer">new proof of quantumness protocol</a> for which spoofing the results is provably as hard as integer factorization, but which is more feasible than Shor's algorithm to implement in the near-term.</li>
-          <li>I worked with experimentalists to perform a <a class="" href="https://arxiv.org/abs/2112.05156" target="_blank" rel="noopener noreferrer">first small-scale demonstration</a> of that protocol, using mid-circuit measurements to implement a quantum interactive proof in practice.</li>
-          <li>I also worked with theory colleagues to <a class="" href="https://arxiv.org/abs/2303.01293" target="_blank" rel="noopener noreferrer">improve the protocol further and extend its applicability</a>, showing that it can also be used to constrain the behavior of an untrusted quantum device via cryptographically "certified qubits."</li>
-	</ul>
 
-        <h4 class="mb-2">Massively parallel numerical quantum dynamics</h4>
         <p class="mb-4 text-small">
-	  Numerical study has proven to be one of the core tools for exploring the emergent properties of many-body quantum systems.
-          I am the main author of the <a href="https://dynamite.readthedocs.io/" target="_blank" rel="noopener noreferrer">dynamite library</a>, which provides <strong>extremely fast time evolution and eigensolving for numerical quantum many-body spin chain physics, parallelized using MPI and GPU acceleration</strong>.
-          The backend is written in C and CUDA C++; the library exposes a Python frontend with an intuitive interface for building and analyzing spin chain Hamiltonians.
-          The library is already being used by a number of labs; a list of publications using it can be found on the project's homepage.
-          I have published works that use dynamite to explore <a href="https://dx.doi.org/10.1103/PhysRevResearch.1.033202" target="_blank" rel="noopener noreferrer">Floquet prethermalization</a>, <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011043" target="_blank" rel="noopener noreferrer">time crystals in such a prethermal phase</a>, and <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.030602" target="_blank" rel="noopener noreferrer">many-body chaos in the Sachdev-Ye-Kitaev model</a>.
-          (The manuscript officially releasing dynamite is in preparation).
-          I also have <a href="https://www.doi.org/10.1145/3368474.3368497" target="_blank" rel="noopener noreferrer">published</a> <a href="https://doi.org/10.1177%2F10943420211060365" target="_blank" rel="noopener noreferrer">works</a> using the LOBPCG algorithm to drastically reduce memory usage for mid-spectrum eigensolving of large many-body quantum Hamiltonians, in particular to explore the phenomenon of many-body localization.
+          I also love high-performance (classical) parallel computing; I wrote and maintain the <a href="https://dynamite.readthedocs.io/" target="_blank" rel="noopener noreferrer">dynamite</a> library, which accelerates the <strong>numerical study of quantum many-body spin chain physics</strong> using MPI and GPUs.
+          In graduate school I used <em>dynamite</em> to explore unusual phenomena including <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011043" target="_blank" rel="noopener noreferrer">time crystals</a> and <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.030602" target="_blank" rel="noopener noreferrer">black hole physics</a>.
+          I have also used GPUs to accelerate tasks related to cryptography; for some time I <a href="https://decodingchallenge.org/syndrome/halloffame" target="_blank" rel="noopener noreferrer">held a record</a> for having solved the largest instances of the Learning Parity with Noise problem used in post-quantum cryptography.
         </p>
       </div>
     </div>
