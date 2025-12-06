@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDB site webcam</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #333;
+        }
+        .container {
+            text-align: center;
+        }
+        img {
+            max-width: 90%;
+            max-height: 80vh;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #84CAE7;
+            text-decoration: none;
+            font-family: "Arial", sans-serif;
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <img id="webcam_img" src="https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg">
+      <a href="https://www.csbf.nasa.gov/antarctica/payloads.htm">CSBF NASA website</a>
+    </div>
+
+    <script>
+        const imageUrl = "https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg";
+        const imgElement = document.getElementById("webcam_img");
+
+        function refreshImage() {
+            // Add timestamp to bypass browser caching
+            imgElement.src = imageUrl + "?t=" + new Date().getTime();
+        }
+
+        // Refresh the image every 60 seconds
+        setInterval(refreshImage, 60000);
+    </script>
+</body>
+</html>
