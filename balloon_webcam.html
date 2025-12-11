@@ -16,9 +16,16 @@
         .container {
             text-align: center;
         }
+        .img-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
         img {
             max-width: 90%;
-            max-height: 80vh;
+            max-height: 40vh;
         }
         a {
             display: block;
@@ -34,22 +41,35 @@
     </style>
 </head>
 <body>
-    <div class="container">
-      <img id="webcam_img" src="https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg">
+  <div class="container">
+    <div class="img-container">
+      <img id="webcam_img_N" src="https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg">
+      <img id="webcam_img_S" src="https://www.balloonfacility.com/webcam/CSBFHDCamS.jpg">
       <a href="https://www.csbf.nasa.gov/antarctica/payloads.htm">CSBF NASA website</a>
     </div>
+  </div>
 
-    <script>
-        const imageUrl = "https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg";
-        const imgElement = document.getElementById("webcam_img");
+  <script>
+    const imageUrls = [
+        "https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg",
+        "https://www.balloonfacility.com/webcam/CSBFHDCamS.jpg",
+    ]
+    const imgElements = [
+        document.getElementById("webcam_img_N"),
+        document.getElementById("webcam_img_S")
+    ]
 
-        function refreshImage() {
+    function refreshImage() {
+        imageUrls.forEach((url, i) => {
+            img = imgElements[i]
             // Add timestamp to bypass browser caching
-            imgElement.src = imageUrl + "?t=" + new Date().getTime();
-        }
+            img.src = url + "?t=" + new Date().getTime();
+        })
+    }
 
-        // Refresh the image every 60 seconds
-        setInterval(refreshImage, 60000);
-    </script>
+    // Refresh the image every 60 seconds
+    setInterval(refreshImage, 60000);
+
+  </script>
 </body>
 </html>
