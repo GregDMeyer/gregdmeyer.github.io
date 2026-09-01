@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Greg Meyer</title>
+<!--
+Magazee Template
+http://www.templatemo.com/tm-514-magazee
+-->
+  <!-- load CSS -->
+  <link rel="stylesheet" href="css/fonts.css">    <!-- Google web font "Open Sans" -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    var renderPage = true;
+
+    if(navigator.userAgent.indexOf('MSIE')!==-1
+      || navigator.appVersion.indexOf('Trident/') > 0){
+        /* Microsoft Internet Explorer detected in. */
+        alert("Please view this in a modern browser.");
+        renderPage = false;
+    }
+  </script>
+
+</head>
+
+<body>
+  <!-- Loader -->
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+
+ <div class="container">
+
+  <!-- 1st section -->
+  <section class="row tm-section">
+   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary tm-section-min-h">
+      <div class="tm-flex-center tm-flex-col">
+        <img src="img/headshot.jpg" alt="photo of face" class="rounded-circle mb-4 tm-md-align-center main-photo">
+        <h3 class="tm-text-color-white tm-site-name txt-centered">Greg Meyer</h3>
+        <p class="text-small tm-text-color-subwhite">also known as: Greg Kahanamoku-Meyer</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center tm-flex-col tm-bg-color-secondary">
+      <h4 class="txt-centered mb-4 mt-4">I am a <strong>postdoc at MIT</strong>, interested in <strong>quantum computing</strong>, <strong>cryptography</strong>, and <strong>high performance computing</strong>.</h4>
+      <div class="mt-4 txt-centered">
+        <a href="files/Greg_Meyer_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary float-lg-left tm-md-align-center">CV</a>
+        <a href="https://github.com/GregDMeyer" target="_blank" rel="noopener noreferrer" class="btn btn-primary float-lg-left tm-md-align-center">github</a>
+      </div>
+      <div class="txt-centered">
+        <a href="#projects" class="btn btn-primary float-lg-left tm-md-align-center">projects</a>
+        <a href="#outreach" class="btn btn-primary float-lg-left tm-md-align-center">outreach</a>
+      </div>
+      <div class="txt-centered">
+        <a href="#talks" class="btn btn-primary float-lg-left tm-md-align-center">talks</a>
+        <a href="#papers" class="btn btn-primary float-lg-left tm-md-align-center">papers</a>
+      </div>
+      <div class="txt-centered">
+        <a href="blog/index.html" class="btn btn-primary float-lg-left tm-md-align-center">blog</a>
+        <a href="dissertation/index.html" class="btn btn-primary float-lg-left tm-md-align-center">thesis</a>
+      </div>
+      <div class="mb-4 txt-centered">
+        <a href="#about" class="btn btn-primary float-lg-left tm-md-align-center">about me</a>
+	<a href="#contact" class="btn btn-primary float-lg-left tm-md-align-center">contact</a>
+      </div>
+
+      <p class="text-vsmall">
+	    Last updated: Sep. 1, 2026
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- 2nd section -->
+<section id="projects" class="row tm-section tm-col-md-reverse">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-secondary">
+      <div class="tm-flex-center tm-flex-col">
+        <h2 class="tm-text-color-primary mb-4">Research directions</h2>
+
+        <p class="text-small">
+          Recently I have been focused on improving estimates of <strong>the cost of quantum algorithms for factoring and related tasks</strong>, both by reducing the cost of basic subroutines like <a class="" href="https://arxiv.org/abs/2403.18006" target="_blank" rel="noopener noreferrer">multiplication</a> and the <a class="" href="https://arxiv.org/abs/2505.00701" target="_blank" rel="noopener noreferrer">quantum Fourier transform</a>; and by making improvements at the algorithmic level like <a class="" href="https://arxiv.org/abs/2412.12558" target="_blank" rel="noopener noreferrer">streaming</a > to reduce qubit counts to even less than the length of the classical input, and <a class="" href="https://arxiv.org/abs/2510.08432" target="_blank" rel="noopener noreferrer">using measurement tricks</a> to more efficiently compute irreversible functions on a quantum computer.
+        </p>
+
+        <p class="text-small">
+          I also work on <a class="" href="https://arxiv.org/abs/2104.00687" target="_blank" rel="noopener noreferrer">making</a>, <a class="" href="https://arxiv.org/abs/1912.05547" target="_blank" rel="noopener noreferrer">breaking,</a> and <a class="" href="https://arxiv.org/abs/2303.01293" target="_blank" rel="noopener noreferrer">analyzing</a> <strong>proofs of quantumness</strong>&mdash;protocols by which a <a class="" href="https://arxiv.org/abs/2112.05156" target="_blank" rel="noopener noreferrer">resource-constrained quantum device</a> can convince a skeptical classical verifier that it is indeed doing something quantum.
+        </p>
+
+        <p class="mb-4 text-small">
+          I also love high-performance (classical) parallel computing; I wrote and maintain the <a href="https://dynamite.readthedocs.io/" target="_blank" rel="noopener noreferrer">dynamite</a> library, which accelerates the <strong>numerical study of quantum many-body spin chain physics</strong> using MPI and GPUs.
+          In graduate school I used <em>dynamite</em> to explore unusual phenomena including <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011043" target="_blank" rel="noopener noreferrer">time crystals</a> and <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.030602" target="_blank" rel="noopener noreferrer">black hole physics</a>.
+          I have also used GPUs to accelerate tasks related to cryptography; for some time I <a href="https://decodingchallenge.org/syndrome/halloffame" target="_blank" rel="noopener noreferrer">held a record</a> for having solved the largest instances of the Learning Parity with Noise problem used in post-quantum cryptography.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary">
+      <div class="tm-max-w-400 tm-flex-center tm-flex-col">
+        <div class="small-image">
+          <img src="img/board.jpg" alt="blackboard of research" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- outreach -->
+<section id="outreach" class="row tm-section">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0 text-center">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary tm-section-min-h">
+      <div class="tm-flex-center tm-flex-col">
+        <img src="img/BASIS.jpg" alt="teaching elementary school students" class="img-fluid tm-md-align-center">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-secondary">
+      <div class="tm-flex-center tm-flex-col">
+        <h2 class="tm-text-color-primary">Outreach &amp; equity</h2>
+        <p class="mb-4 text-small">As a postdoc, I volunteer with the following program:</p>
+
+        <h4 class=" mt-2"><a href="https://mudyeh.github.io/query/" target="_blank" rel="noopener noreferrer">QuERY: Quantum Engineering Research and You</a></h4>
+        <p class="">Joint Harvard-MIT program mentoring high school students in Bellaire, TX about various subfields of quantum science, as well as generally about finding your path in science and life.</p>
+
+        <hr class="h-divider">
+
+        <p class="mb-4 text-small">During graduate school, I was involved with the following organizations:</p>
+
+        <h4 class=" mt-2"><a href="https://igenspectrum.berkeley.edu/" target="_blank" rel="noopener noreferrer">IGenSpectrum</a></h4>
+        <p class="">Student group for the LGBTQ+ community in Berkeley Physics. I served as an officer.</p>
+
+        <h4 class=" mt-2">Respect is Part of Research</h4>
+        <p class="">Annual workshop aimed at improving department climate and preventing sexual violence and sexual harassment. I served each year as a facilitator, and helping to organize the workshop.</p>
+
+        <h4 class=" mt-2"><a href="https://crscience.org/outreach/basis/" target="_blank" rel="noopener noreferrer">Bay Area Scientists in Schools</a></h4>
+        <p class="">Teaching science lessons to elementary school students around the Bay Area. I participated as a teacher, and a member of the Steering Committee.</p>
+
+        <p class="mb-4 text-small">Please <a href="#contact">contact me</a> or follow the links above if you're interested in getting involved with any of these organizations!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- talks -->
+<section id="talks" class="row tm-section tm-col-md-reverse">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center py-5 px-md-5">
+      <div class="tm-flex-center tm-flex-col">
+        <h2 class="tm-text-color-primary mb-4">Talks and presentations</h2>
+	<p class="text-vsmall">
+	  If you would like me to speak, feel free to <a href="#contact">contact me!</a>
+	</p>
+	<div class="tm-align-left talk-list">
+      <p class="text-small dedent">
+	    <strong>2026-08-31</strong>, <a target="_blank" rel="noopener noreferrer" href="https://tqc-conference.org/2026/">TQC 2026,</a> <em>Invited speaker.</em> <br>
+        "Discrete log, factoring, and proofs of quantumness in 2026." (1&nbsp;hr) [slides: <a target="_blank" rel="noopener noreferrer" href="files/2026-08-31_Meyer_TQC.pdf">pdf</a>, <a target="_blank" rel="noopener noreferrer" href="files/2026-08-31_Meyer_TQC.tgz">TeX source</a>]
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2026-08-10</strong>, <a target="_blank" rel="noopener noreferrer" href="https://signalfoundation.org/">Signal Foundation.</a> <br>
+        "The state of quantum cryptanalysis." (30&nbsp;min)
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2026-07-09</strong>, Simons Institute for the Theory of Computing, <br>
+        <a target="_blank" rel="noopener noreferrer" href="https://simons.berkeley.edu/workshops/quantum-circuits-algorithms-cryptography"> <em>Workshop: quantum circuits and algorithms for cryptography.</em> </a> <br>
+        Welcome and overview (workshop organizer). (1&nbsp;hr) [slides: <a target="_blank" rel="noopener noreferrer" href="files/2026-07-09_Meyer_simons-workshop.pdf">pdf</a>, <a target="_blank" rel="noopener noreferrer" href="files/2026-07-09_Meyer_simons-workshop.tgz">TeX source</a>]
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2026-05-11</strong>, <a target="_blank" rel="noopener noreferrer" href="https://eurocrypt.iacr.org/2026/">Eurocrypt 2026.</a> <br>
+            "Parallel spooky pebbling makes Regev factoring more practical." (20&nbsp;min, presented jointly with Seyoon Ragavan) [slides: <a target="_blank" rel="noopener noreferrer" href="files/2026-05-11-Eurocrypt-Meyer-spooky-pebbling.pdf">pdf</a>, <a target="_blank" rel="noopener noreferrer" href="files/2026-05-11-Eurocrypt-Meyer-spooky-pebbling.tgz">TeX source</a>]
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2026-01-29</strong>, <a target="_blank" rel="noopener noreferrer" href="https://qip2026.lu.lv/">QIP 2026.</a> <br>
+            "Parallel spooky pebbling makes Regev factoring more practical." (25&nbsp;min, presented jointly with Katherine Van Kirk) [slides: <a target="_blank" rel="noopener noreferrer" href="files/2026-01-29-QIP-Meyer-spooky-pebbling.pdf">pdf</a>, <a target="_blank" rel="noopener noreferrer" href="files/2026-01-29-QIP-Meyer-spooky-pebbling-tex.tgz">TeX source</a>]
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2026-01-28</strong>, <a target="_blank" rel="noopener noreferrer" href="https://qip2026.lu.lv/">QIP 2026.</a> <br>
+            "A log-depth in-place quantum Fourier transform that rarely needs ancillas." (25&nbsp;min) [slides: <a target="_blank" rel="noopener noreferrer" href="files/2026-01-28-QIP-Meyer-optimistic-qft.pdf">pdf</a>, <a target="_blank" rel="noopener noreferrer" href="files/2026-01-28-QIP-Meyer-optimistic-qft-tex.tgz">TeX source</a>]
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2025-11-13</strong>, <a target="_blank" rel="noopener noreferrer" href="https://simons.berkeley.edu/homepage">Simons Institute for the Theory of Computing.</a> <br>
+            <em>Quantum pod seminar</em>.
+            <br> "Parallel spooky pebble games for factoring and more." (1&nbsp;hr)
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2025-10-15</strong>, Tufts University. <br>
+            <em><a target="_blank" rel="noopener noreferrer" href="https://sites.google.com/view/tuftsqi/tufts-quantum-computing-seminar">Quantum Computing Seminar</a></em>.
+            <br> "The Optimistic Quantum Fourier Transform." (1&nbsp;hr, presented jointly with John Blue)
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2025-09-18</strong>, Tufts University. <br>
+            <em><a target="_blank" rel="noopener noreferrer" href="https://sites.google.com/view/tuftsqi/tufts-quantum-computing-seminar">Quantum Computing Seminar</a></em>.
+            <br> "The Jacobi Factoring Circuit." (1&nbsp;hr, presented jointly with Seyoon Ragavan)
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2025-06-26</strong>, <a target="_blank" rel="noopener noreferrer" href="https://acm-stoc.org/stoc2025/">ACM Symposium on Theory of Computing (STOC)</a>.
+            <br> "The Jacobi Factoring Circuit: Quantum Factoring in Near-Linear Gates and Sublinear Space." (18&nbsp;min, presented jointly with Katherine Van Kirk)
+	  </p>
+
+      <p class="text-small dedent">
+	    <strong>2025-05-26</strong>, <a target="_blank" rel="noopener noreferrer" href="https://simons.berkeley.edu/homepage">Simons Institute for the Theory of Computing.</a> <br>
+            <em><a target="_blank" rel="noopener noreferrer" href="https://simons.berkeley.edu/workshops/quantum-algorithms-complexity-fault-tolerance-reunion">Quantum Algorithms, Complexity, and Fault Tolerance Reunion Workshop</a></em>.
+            <br> "The Jacobi factoring circuit, and other developments in quantum factoring." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2025-05-26-KahanamokuMeyer-simons.pdf">[slides]</a> <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/live/PjUBixihZ78">[video]</a>
+	  </p>
+
+          <p class="text-small dedent">
+	    <strong>2025-05-23</strong>, <a target="_blank" rel="noopener noreferrer" href="https://cse.ucsd.edu/">University of California San Diego, Computer Science & Engineering.</a> <br> <em>Theory lunch seminar</em>. <br> "Recent advances in quantum factoring." (1&nbsp;hr)
+	  </p>
+
+          <p class="text-small dedent">
+	    <strong>2025-05-02</strong>, <a target="_blank" rel="noopener noreferrer" href="https://www.cs.washington.edu">University of Washington, Computer Science & Engineering.</a> <br> <em>Theory lunch seminar</em>. <br> "Recent advances in quantum factoring." (1&nbsp;hr)
+	  </p>
+
+          <p class="text-small dedent">
+	    <strong>2025-02-27</strong>, <a target="_blank" rel="noopener noreferrer" href="https://rsvp.duke.edu/event/qip2025/home">QIP 2025.</a> <br> "Factoring in near-linear depth using 2n+O(n/log n) qubits." (poster)
+	  </p>
+
+      	  <p class="text-small dedent">
+	    <strong>2024-11-19</strong>, <a target="_blank" rel="noopener noreferrer" href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Guest seminar</em>. <br> "The Jacobi factoring circuit: classically-hard factoring in sublinear quantum space and depth." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2024-11-19_IBM_Kahanamoku-Meyer.pdf">[slides]</a>
+	  </p>
+
+      	    <p class="text-small dedent">
+	      <strong>2024-10-03</strong>, <a target="_blank" rel="noopener noreferrer" href="http://qis.mit.edu/">MIT Quantum Information Science group.</a> <br> <em>Quantum Information Processing Seminar</em>. <br> "Factoring in near-linear depth with roughly 2n qubits." (1&nbsp;hr)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2024-09-27</strong>, Harvard University. <br> <em><a target="_blank" rel="noopener noreferrer" href="https://yao.physics.harvard.edu/">Yao group meeting</a></em>. <br> "The pursuit of a free lunch: factoring in low depth with few qubits." (2&nbsp;hr)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2024-09-11</strong>, University of Maryland. <br> <em><a target="_blank" rel="noopener noreferrer" href="https://quics.umd.edu/events/achieving-low-circuit-depth-few-qubits-arithmetic-and-qft">QuICS seminar</a></em>. <br> "Achieving low circuit depth with few qubits, for arithmetic and the QFT." (1&nbsp;hr)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2024-05-16</strong>, <a target="_blank" rel="noopener noreferrer" href="https://quantumai.google/">Google Quantum AI.</a> <br> <em>Qualtran group meeting</em>. <br> "Fast integer multiplication without ancillas." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2024-05-16_Google_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	    <strong>2023-11-02</strong>, <a target="_blank" rel="noopener noreferrer" href="https://www.phys.hawaii.edu/">University of Hawaiʻi at Mānoa, Department of Physics and Astronomy.</a> <br> <em>Department colloquium</em>. <br> "How to prove you have built a quantum computer." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2023-11-02_UHM_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2023-10-26</strong>, <a target="_blank" rel="noopener noreferrer" href="https://quantumai.google/">Google Quantum AI.</a> <br> <em>Seminar</em>. <br> "Fast integer multiplication with very few ancillas." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2023-10-26_Google_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2023-10-25</strong>, <a target="_blank" rel="noopener noreferrer" href="https://iqim.caltech.edu/">Caltech Institute for Quantum Information and Matter.</a> <br> <em>IQIM seminar</em>. <br> "Fast integer multiplication with very few ancillas." (1 hr.) <a target="_blank" rel="noopener noreferrer" href="files/2023-10-25_Caltech_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+      	    <p class="text-small dedent">
+	      <strong>2023-10-20</strong>, <a target="_blank" rel="noopener noreferrer" href="http://qis.mit.edu/">MIT Quantum Information Science group.</a> <br> <em>Quantum Information Processing Seminar</em>. <br> "Fast quantum integer multiplication with very few ancillas." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2023-10-20_MIT_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2023-10-19</strong>, Harvard University. <br> <em>Quantum information seminar</em>. <br> "Fast quantum integer multiplication with very few ancillas." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2023-10-19_Harvard_Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2023-07-14</strong>, <a target="_blank" rel="noopener noreferrer" href="https://simons.berkeley.edu/workshops/quantum-summer-cluster-workshop">Simons Institute Summer Cluster Workshop</a>. <br> <em>Lightning talk</em>. <br> "Fast integer multiplication with almost no ancillas." (20&nbsp;min) <a target="_blank" rel="noopener noreferrer" href="files/2023-07-14_Simons_Kahanamoku-Meyer.pdf">[slides]</a> <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/live/zeHEQnc0hcw?si=HU3tRuJpAoizXi0k">[video]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2023-03-01</strong>, <a target="_blank" rel="noopener noreferrer" href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Guest seminar</em>. <br> "Cryptographic protocols for classically-verifiable quantum advantage and more." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2023-03-01-IBM_quantum_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2022-08-04</strong>, <a target="_blank" rel="noopener noreferrer" href="https://clear-project.org/pubscience/">CLEAR Project.</a> <br> <em>PubScience</em>. <br> "Quantum computing: how to do math with atoms, and how to trust the answers" (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2022-08-04-PubScience-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2022-05-03</strong>, UC Berkeley.<br> <em>Guest lecture, CHEM 195/295: Special topics in Quantum Computing</em>. <br> "Classical verification of quantum computation." (1.5&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2022-05-03-Special-Topics-QC-Lecture-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2022-03-15</strong>, <a target="_blank" rel="noopener noreferrer" href="https://meetings.aps.org/Meeting/MAR22/Session/K36.4">APS March Meeting.</a> <br> <em>Quantum Digital and Analog Algorithms [Focus] (invited)</em>. <br> "Classical verification of quantum computational advantage." (30&nbsp;min) <a target="_blank" rel="noopener noreferrer" href="files/2022-03-15-APS-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2022-02-22</strong>, Harvard University. <br> <a target="_blank" rel="noopener noreferrer" href="http://cmt.harvard.edu/kidseminar.html"><em>CMT Kid's Seminar</em></a>. <br> "Classical verification of quantum computational advantage." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2022-02-22-CMT-kids-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2022-02-09</strong>, <a target="_blank" rel="noopener noreferrer" href="https://quantumsystemsaccelerator.org/">Quantum Systems Accelerator (QSA).</a> <br> <em>Science session</em>. <br> "Classical verification of quantum computational advantage." (15&nbsp;min) <a target="_blank" rel="noopener noreferrer" href="files/2022-02-09-QSA-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-11-10</strong>, <a target="_blank" rel="noopener noreferrer" href="https://research.ibm.com/quantum-computing">IBM Quantum</a>. <br> <em>Quantum computing seminar</em>. <br> "Classical verification of quantum computational advantage." (1&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2021-11-10-IBM_quantum_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-10-08</strong>, <a target="_blank" rel="noopener noreferrer" href="https://toc.csail.mit.edu/node/428">MIT cryptography and information security</a>. <br> <em>CIS seminar</em>. <br> "Classical verification of quantum computational advantage." (1.5&nbsp;hr) <a target="_blank" rel="noopener noreferrer" href="files/2021-10-08-MIT_crypto_seminar-Kahanamoku-Meyer.pdf">[slides]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-09-29</strong>, <a target="_blank" rel="noopener noreferrer" href="https://ciqc.berkeley.edu/">NSF Challenge Institute for Quantum Computation (CIQC)</a>. <br> <em>Colloquium introduction</em>. <br> "Computability and complexity (introducing Jarrod McClean)." (20&nbsp;min) <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/mD6m-XkDgTY">[video]</a>
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-09-28</strong>, <a target="_blank" rel="noopener noreferrer" href="http://www.phys-info.org/">Physics of Information and Quantum Technologies, IT Lisbon.<a/> <br> <em>Group meeting</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-07-14</strong>, <a target="_blank" rel="noopener noreferrer" href="https://simons.berkeley.edu/">Simons Institute for the Theory of Computing.</a> <br> <em>Quantum Wave in Computing Reunion</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min) <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/mD6m-XkDgTY">[video]</a>
+	    </p>
+
+      	    <p class="text-small dedent">
+	      <strong>2021-05-21</strong>, <a target="_blank" rel="noopener noreferrer" href="http://qis.mit.edu/">MIT Quantum Information Science group.</a> <br> <em>Quantum Information Processing Seminar</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
+	    </p>
+
+      	    <p class="text-small dedent">
+	      <strong>2021-04-26</strong>, <a target="_blank" rel="noopener noreferrer" href="https://www.cs.utexas.edu/~qic/">UT Austin quantum information center.</a> <br> <em>Group meeting</em>. <br> "Classical verification of quantum computational advantage." (45&nbsp;min)
+	    </p>
+
+      	    <p class="text-small dedent">
+	      <strong>2021-04-23</strong>, <a target="_blank" rel="noopener noreferrer" href="http://aide-qc.org/">AIDE-QC</a>. <br> <em>All hands meeting</em>. <br> "Classical verification of quantum computational advantage." (20&nbsp;min)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-04-21</strong>, <a target="_blank" rel="noopener noreferrer" href="https://quantumsystemsaccelerator.org/">Quantum Systems Accelerator (QSA).</a> <br> <em>Science session</em>. <br> "Classical verification of quantum computational advantage." (15&nbsp;min)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2021-02-01</strong>, <a target="_blank" rel="noopener noreferrer" href="https://www.mcqst.de/qip2021/">Quantum Information Processing (QIP 2021).</a> <br> "An efficiently-verifiable test of quantum advantage." (poster)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2020-08-26</strong>, <a target="_blank" rel="noopener noreferrer" href="http://aide-qc.org/">AIDE-QC</a>. <br> <em>Verification and debugging thrust meeting</em>. <br> "Efficiently-verifiable quantum advantage."
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2020-06-02</strong>, <a target="_blank" rel="noopener noreferrer" href="https://meetings.aps.org/Meeting/DAMOP20/Content/3872">APS DAMOP 2020.</a> <br> "An efficiently-verifiable test of quantum advantage." (poster)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2019-05-30</strong>, <a target="_blank" rel="noopener noreferrer" href="https://meetings.aps.org/Meeting/DAMOP19/Content/3682">APS DAMOP 2019.</a> <br> "A numerical study of many-body localization using LOBPCG." (poster)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2018-03-08</strong>, <a target="_blank" rel="noopener noreferrer" href="https://meetings.aps.org/Meeting/MAR18/Content/3475">APS March Meeting 2018.</a> <br> "A long range, pre-thermal time crystal in one dimension." (15&nbsp;min)
+	    </p>
+
+	    <p class="text-small dedent">
+	      <strong>2017-06-07</strong>, <a target="_blank" rel="noopener noreferrer" href="https://meetings.aps.org/Meeting/DAMOP17/Content/3310">APS DAMOP 2017.</a> <br> "Simulation of quantum many-body dynamics for generic strongly-interacting systems." (poster)
+	    </p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary">
+      <div class="tm-max-w-400 flex-space tm-flex-col">
+        <a href="https://www.youtube.com/live/PjUBixihZ78" target="_blank" rel="noopener noreferrer">
+          <img class="img-fluid" src="img/jacobi_yt_thumbnail.png" alt="link to factoring presentation video">
+        </a>
+        <a href="https://www.youtube.com/live/zeHEQnc0hcw" target="_blank" rel="noopener noreferrer">
+          <img class="img-fluid" src="img/mult_yt_thumbnail.png" alt="link to fast quantum multiplication presentation">
+        </a>
+        <a href="https://www.youtube.com/watch?v=0w7RLgZs9jw" target="_blank" rel="noopener noreferrer">
+          <img class="img-fluid" src="img/poq_yt_thumbnail.png" alt="link to proof of quantumness presentation">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- papers -->
+<section id="papers" class="row tm-section">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary tm-section-min-h">
+      <div class="tm-flex-center tm-flex-col">
+        <img src="img/papers.svg" alt="papers" class="tm-md-align-center">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center py-5 px-md-5">
+      <div class="tm-flex-center tm-flex-col">
+        <h2 class="tm-text-color-primary mb-4">Papers</h2>
+	<p>
+	  See my page at <a target="_blank" rel="noopener noreferrer" href="https://scholar.google.com/citations?user=0WsLEYQAAAAJ">Google Scholar</a>
+	</p>
+	<p>
+          GDKM = Gregory D. Kahanamoku-Meyer
+          <br>
+	  <sup>&dagger;</sup> = authors in alphabetical order
+        </p>
+
+        <h4>
+          PhD dissertation
+        </h4>
+	<p class="mt-2">GDKM. <strong>Exploring the Limits of Classical Simulation: From Computational Many-Body Dynamics to Quantum Advantage.</strong> Ph.D. dissertation, University of California at Berkeley, 2023 <a class="" target="_blank" rel="noopener noreferrer" href="dissertation/index.html">[link]</a></p>
+        <h4>
+          Articles
+        </h4>
+	<p class="mt-2"><sup>&dagger;</sup> GDKM, S. Ragavan, K. Van Kirk. <strong>Parallel Spooky Pebbling Makes Regev Factoring More Practical.</strong> arXiv:2510.08432 (accepted Eurocrypt 2026) <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2510.08432">[arxiv]</a>  <a target="_blank" rel="noopener noreferrer" href="https://eprint.iacr.org/2025/1887">[eprint]</a></p>
+
+	<p class="mt-2">GDKM, J. Blue, T. Bergamaschi, C. Gidney, I. Chuang. <strong>A log-depth quantum Fourier transform that rarely needs ancillas.</strong> arXiv:2505.00701 <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2505.00701">[arxiv]</a></p>
+
+	<p class="mt-2"><sup>&dagger;</sup> GDKM, S. Ragavan, V. Vaikuntanathan, K. Van Kirk. <strong>The Jacobi Factoring Circuit: Quantum Factoring with Near-Linear Gates and Sublinear Space and Depth.</strong> STOC 2025. <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2412.12558">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://eprint.iacr.org/2024/2034">[eprint]</a> <a target="_blank" rel="noopener noreferrer" href="https://dl.acm.org/doi/10.1145/3717823.3718273">[conf. proceedings]</a></p>
+
+	<p class="mt-2">GDKM, N. Yao. <strong>Fast quantum integer multiplication with zero ancillas.</strong> arXiv:2403.18006 <a class="" target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2403.18006">[arxiv]</a></p>
+
+	<p class="mt-2">GDKM. <strong>Forging quantum data: classically defeating an IQP-based quantum test.</strong> Quantum 7, 1107 (2023) <a class="" target="_blank" rel="noopener noreferrer" href="https://doi.org/10.22331/q-2023-09-11-1107">[arxiv + journal]</a></p>
+
+	<p class="mt-2"><sup>&dagger;</sup> Z. Brakerski, A. Gheorghiu, GDKM, E. Porat, T. Vidick. <strong>Simple Tests of Quantumness Also Certify Qubits.</strong> CRYPTO 2023 <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2303.01293">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1007/978-3-031-38554-4_6">[conf. proceedings]</a></p>
+
+	<p class="mt-2">GDKM<sup>*</sup>, D. Zhu<sup>*</sup>, L. Lewis, C. Noel, O. Katz, B. Harraz, Q. Wang, A. Risinger, L. Feng, D. Biswas, L. Egan, A. Gheorghiu, Y. Nam, T. Vidick, U. Vazirani, N. Yao, M. Cetina, C. Monroe. <strong>Interactive cryptographic proofs of quantumness using mid-circuit measurements.</strong> Nat. Phys. 19, 1725–1731 (2023) <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2112.05156">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1038/s41567-023-02162-9">[journal]</a>
+          <br>
+          <span class="text-vsmall"><sup>*</sup> Co-first-authored paper</span>
+        </p>
+
+	<p class="mt-2">GDKM, S. Choi, U. Vazirani, N. Yao. <strong>Classically-verifiable quantum advantage from a computational Bell test.</strong> Nat. Phys. 18, 918–924 (2022) <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2104.00687">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1038/s41567-022-01643-7">[journal]</a></p>
+
+	<p class="mt-2">R. Van Beeumen, K. Ibrahim, GDKM, N. Yao, C. Yang. <strong>Enhancing scalability of a matrix-free eigensolver for studying many-body localization.</strong> The International Journal of High Performance Computing Applications, 36(3), 307–319 (2022) <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2012.00217">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1177%2F10943420211060365">[journal]</a></p>
+
+	<p class="mt-2">B. Kobrin, Z. Yang, GDKM, C. Olund, J. Moore, D. Stanford, N. Yao. <strong>Many-Body Chaos in the Sachdev-Ye-Kitaev Model.</strong> Phys. Rev. Lett. 126, 030602 (2021) <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2002.05725">[arxiv]</a> <a target="_blank" rel="noopener noreferrer" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.030602">[journal]</a></p>
+
+	<p class="mt-2">F. Machado, D. Else, GDKM, C. Nayak, N. Yao. <strong>Long-Range Prethermal Phases of Nonequilibrium Matter.</strong> Phys. Rev. X 10, 011043 (2020) <a class="" target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/1908.07530">[arxiv]</a> <a class="" target="_blank" rel="noopener noreferrer" href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.011043">[journal]</a></p>
+
+	<p class="mt-2">R. Van Beeumen, GDKM, N. Yao, C. Yang. <strong>A scalable matrix-free iterative eigensolver for studying many-body localization.</strong> HPCAsia2020: Proceedings of the International Conference on High Performance Computing in Asia-Pacific Region (2020) <a target="_blank" rel="noopener noreferrer" href="https://www.doi.org/10.1145/3368474.3368497">[conf. proceedings]</a></p>
+
+	<p class="mt-2">F. Machado, GDKM, D. Else, C. Nayak, N. Yao. <strong>Exponentially Slow Heating in Short and Long-range Interacting Floquet Systems.</strong> Phys. Rev. Research 1, 033202 (2019) <a class="" target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/1708.01620">[arxiv]</a> <a class="" target="_blank" rel="noopener noreferrer" href="https://dx.doi.org/10.1103/PhysRevResearch.1.033202">[journal]</a></p>
+
+        <h4>
+          Peer review
+        </h4>
+
+        <p class="mt-2">
+          Publications and conferences for which I have reviewed papers include Quantum, PRX, PRX Quantum, npj Quantum Information, QIP, STOC, QCE, TQC, ITCS, and QCTIP.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="row tm-section tm-col-md-reverse">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center py-5 px-md-5">
+      <div class="tm-flex-center tm-flex-col">
+        <h2 class="tm-text-color-primary mb-4">About me</h2>
+	<p class="">I grew up in Vermont, and enjoy bouldering, Ultimate, hockey, and generally being outdoors.</p>
+	<p class="">My familial roots are German and Czech; I have varying levels of proficiency in French, Spanish, German, and Hawaiian (in addition to my native language English).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary">
+      <div class="tm-max-w-400 tm-flex-center tm-flex-col">
+	<img src="img/landscape.jpg" alt="photo of landscape with dog" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="row tm-section tm-mb-30">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+    <div class="tm-flex-center py-5 px-md-5 tm-bg-color-primary tm-section-min-h">
+      <div class="tm-flex-center tm-flex-col">
+        <img src="img/mail.svg" alt="envelope" class="tm-md-align-center">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+    <div class="tm-flex-center py-5 px-md-5">
+      <div class="tm-flex-center tm-flex-col">
+        <h2 class="tm-text-color-primary mb-4">Contact</h2>
+        <p class="mt-2"><strong>Email: </strong><a href="mailto:contact@gmeyer.net">contact@gmeyer.net</a></p>
+        <p class="mt-2"><strong>Office: </strong>26-213 @ MIT</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="row">
+  <div class="col-lg-12">
+    <p class="text-center small tm-copyright-text mb-0">Copyright &copy; <span class="tm-current-year">2018</span> Gregory D. Meyer | Design based off of "Magazee" by Template Mo</p>
+  </div>
+</div>
+
+<!-- load JS -->
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+<script>
+
+  /* DOM is ready
+  ------------------------------------------------*/
+  $(function(){
+
+    if(renderPage) {
+      $('body').addClass('loaded');
+    }
+
+    $('.tm-current-year').text(new Date().getFullYear());  // Update year in copyright
+  });
+
+</script>
+
+</body>
+</html>
