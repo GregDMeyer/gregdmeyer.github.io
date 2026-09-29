@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDB site webcam</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #333;
+        }
+        .container {
+            text-align: center;
+        }
+        .img-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 90%;
+            max-height: 40vh;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #84CAE7;
+            text-decoration: none;
+            font-family: "Arial", sans-serif;
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="img-container">
+      <img id="webcam_img_N" src="https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg">
+      <img id="webcam_img_S" src="https://www.balloonfacility.com/webcam/CSBFHDCamS.jpg">
+      <a href="https://www.csbf.nasa.gov/antarctica/payloads.htm">CSBF NASA website</a>
+    </div>
+  </div>
+
+  <script>
+    const imageUrls = [
+        "https://www.balloonfacility.com/webcam/CSBFHDCamN.jpg",
+        "https://www.balloonfacility.com/webcam/CSBFHDCamS.jpg",
+    ]
+    const imgElements = [
+        document.getElementById("webcam_img_N"),
+        document.getElementById("webcam_img_S")
+    ]
+
+    function refreshImage() {
+        imageUrls.forEach((url, i) => {
+            img = imgElements[i]
+            // Add timestamp to bypass browser caching
+            img.src = url + "?t=" + new Date().getTime();
+        })
+    }
+
+    // Refresh the image every 60 seconds
+    setInterval(refreshImage, 60000);
+
+  </script>
+</body>
+</html>
