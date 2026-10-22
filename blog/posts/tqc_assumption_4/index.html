@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-09-28">
+<meta name="description" content="Measurement is a powerful tool in circuit compilation.">
+
+<title>Broken assumption 4: quantum circuits must be (mostly) reversible – ancillary data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-bd795f8d0a4c77f39b13ca0720927624.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ancillary data</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Broken assumption 4: quantum circuits must be (mostly) reversible</h1>
+                  <div>
+        <div class="description">
+          Measurement is a powerful tool in circuit compilation.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">quantum</div>
+                <div class="quarto-category">talks</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 28, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Post series
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Part of: <a href="../tqc_2026">A Series of Unfortunate Assumptions</a></p>
+</div>
+</div>
+<p>We often need to compile classical circuits into quantum ones, allowing us to evaluate a function on a <em>superposition</em> of inputs. A core challenge is the fact that quantum unitaries are fundamentally <em>reversible</em> operations, while classical circuits are not. Now, quantum <em>measurement</em> is not reversible, but measurement collapses superpositions, and we have no control over the outcome. So at first glance, it seems it won’t be useful for classical circuit compilation… right?</p>
+<p>In this part, I’ll discuss a specific way in which measurement can be used to dramatically speed up quantum circuits.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Seyoon Ragavan and I gave a fun talk on this topic at Eurocrypt 2025. <a href="https://youtu.be/jei8L2mts3A?&amp;t=1300">The recording is available here</a>.</p>
+</div>
+</div>
+<section id="quantum-implementation-of-classical-sequential-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="quantum-implementation-of-classical-sequential-algorithms">Quantum implementation of classical sequential algorithms</h2>
+<p>Suppose we have a classical algorithm to compute some function <span class="math inline">\(f(x)\)</span>, and we would like to implement a quantum operation that computes this function in superposition. Specifically, we want something that makes the transformation:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math display">\[
+\ket{x}\ket{0} \to \ket{x}\ket{f(x)}
+\]</span> But now suppose our classical algorithm to compute <span class="math inline">\(f(x)\)</span> is a sequential algorithm with <span class="math inline">\(k\)</span> steps <span class="math inline">\(f_i\)</span>: <span class="math display">\[
+f = f_k \circ f_{k-1} \circ \cdots \circ f_2 \circ f_1
+\]</span></p>
+<p>The fundamental question we will explore here is: <strong>How can we build an efficient quantum circuit for <span class="math inline">\(f(x)\)</span>, if all of the steps <span class="math inline">\(f_i\)</span> are themselves irreversible?</strong></p>
+<p>One way to do it is to simply store all the intermediate values that are produced.</p>
+<p>Let <span class="math inline">\(x_i\)</span> be the intermediate value output by step <span class="math inline">\(f_i\)</span>, so <span class="math inline">\(x_i = f_i(\cdots f_1(x) \cdots)\)</span>. Also suppose that we can have access to unitaries <span class="math inline">\(U_i\)</span> which act as <span class="math inline">\(U_i \ket{x_{i-1}} \ket{0} = \ket{x_{i-1}} \ket{x_{i}}\)</span>. We can just start computing intermediate values out-of-place, putting each in a new ancilla register:</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;\ket{x} \\
+&amp;\ket{x} \ket{x_1} \\
+\text{time} \downarrow \;\; &amp;\ket{x} \ket{x_1} \ket{x_2} \\
+&amp;\ket{x} \ket{x_1} \ket{x_2} \cdots \ket{x_{k-1}} \\
+&amp;\ket{x} \ket{x_1} \ket{x_2} \cdots \ket{x_{k-1}} \ket{f(x)} \\
+\end{align}
+\]</span></p>
+<p>We’ve successfully computed the value <span class="math inline">\(f(x)\)</span>, but there are a ton of extra registers hanging around, that will in general be entangled with the input register <span class="math inline">\(\ket{x}\)</span> and will cause a problem if we don’t do something about them. Well, starting with <span class="math inline">\(U_{k-1}\)</span>, we can just run the circuit for each step backwards to “uncompute” the intermediate values. “Freeing” each register as we uncompute it:</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;\ket{x} \ket{x_1} \ket{x_2} \cdots \ket{x_{k-1}} \ket{f(x)} \\
+\text{time} \downarrow \;\; &amp;\ket{x} \ket{x_1} \ket{x_2} \cdots \hphantom{\ket{x_{k-1}}} \ket{f(x)} \\
+&amp;\ket{x} \ket{x_1} \hphantom{\ket{x_2} \cdots \ket{x_{k-1}}} \ket{f(x)} \\
+&amp;\ket{x} \hphantom{\ket{x_1} \ket{x_2} \cdots \ket{x_{k-1}}} \ket{f(x)} \\
+\end{align}
+\]</span></p>
+<p>Great, we’ve done it! … but at what cost?</p>
+<section id="cost-of-the-trivial-strategy" class="level4">
+<h4 class="anchored" data-anchor-id="cost-of-the-trivial-strategy">Cost of the trivial strategy</h4>
+<p>If we count each application of a unitary <span class="math inline">\(U_i\)</span> (or its inverse) as 1 step, then the cost of this strategy is <span class="math inline">\(2k-1\)</span> steps—which is actually <strong>optimal</strong>!</p>
+<p>But that’s just gate cost. The <strong>space</strong> cost is <span class="math inline">\(O(k)\)</span>, which is absolutely terrible. To be clear about why this is so bad, suppose each intermediate register is <span class="math inline">\(n\)</span> qubits long, and we have a relatively fast algorithm with a linear <span class="math inline">\(O(n)\)</span> number of steps. Then this algorithm will require <span class="math inline">\(O(n^2)\)</span> qubits to temporarily store all of the intermediate values!</p>
+<p>Throughout this post we’ll be building up a table of costs; we’ll start here. Because we’ll be parallelizing later, we’ll record the time cost as “Depth.”</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Algorithm</th>
+<th>Space</th>
+<th>Depth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trivial</td>
+<td><span class="math inline">\(O(k)\)</span></td>
+<td><span class="math inline">\(2k-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pebble-games" class="level3">
+<h3 class="anchored" data-anchor-id="pebble-games">Pebble games</h3>
+<p>The question of how to do better has been studied for years, even long before the context of quantum circuits. In <a href="https://doi.org/10.1137/0218053">a 1989 work</a> Bennett studied this question in the context of reversible classical computing. He introduced a beautiful abstraction called a <em>reversible pebble game</em>, which works as follows.</p>
+<p>Imagine a game board sort of like that used in mancala or <a href="https://en.wikipedia.org/wiki/K%C5%8Dnane">kōnane</a>, in which there are a series of holes or “slots” into which we can place pebbles (in this case, at most one pebble per hole). Assign each intermediate value one of these slots. The abstraction is then:</p>
+<ul>
+<li>placing a pebble corresponds to computing a value (using new space), and</li>
+<li>removing a pebble corresponds to uncomputing a value (freeing up space).</li>
+</ul>
+<p>The algorithm’s space usage corresponds to the number of pebbles on the board.</p>
+<p>As an example, the trivial out-and-back strategy shown above, where we store all the intermediate values, can be represented by the following pebble game:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pebble_trivial.svg" class="img-fluid figure-img"></p>
+<figcaption>A trivial solution to the length <span class="math inline">\(k=5\)</span> pebble game.</figcaption>
+</figure>
+</div>
+<p>To be explicit, here are the rules for a reversible pebble game:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reversible pebble game rules
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Start</strong>: a pebble only on <span class="math inline">\(x\)</span></p>
+<p><strong>Goal</strong>: pebbles on <span class="math inline">\(x\)</span> and <span class="math inline">\(f(x)\)</span>, no other pebbles present</p>
+<p><strong>Allowed moves</strong>: can only place or remove a pebble if there is a pebble immediately to its left</p>
+</div>
+</div>
+<section id="using-less-space-a-recursive-strategy" class="level4">
+<h4 class="anchored" data-anchor-id="using-less-space-a-recursive-strategy">Using less space: a recursive strategy</h4>
+<p>We can use a lot less space than the <span class="math inline">\(O(k)\)</span> pebbles of the trivial strategy shown above, by using a recursive strategy. First I’ll show it visually:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pebble_recursive.svg" class="img-fluid figure-img"></p>
+<figcaption>A recursive strategy for the reversible pebble game.</figcaption>
+</figure>
+</div>
+<p>Here it is written out, if that’s more your speed. Here <span class="math inline">\(\textsf{Peb}(i, j)\)</span> means “play a length <span class="math inline">\(j-i\)</span> pebble game from position <span class="math inline">\(i\)</span> to position <span class="math inline">\(j\)</span>.”</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Recursive algorithm for <span class="math inline">\(\textsf{Peb}(0, k)\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Place a pebble at <span class="math inline">\(k/2\)</span> via <span class="math inline">\(\textsf{Peb}(0, k/2)\)</span></li>
+<li>Place a pebble at <span class="math inline">\(k\)</span> via <span class="math inline">\(\textsf{Peb}(k/2, k)\)</span></li>
+<li>Remove the pebble at <span class="math inline">\(k/2\)</span> via <span class="math inline">\(\textsf{Peb}(0, k/2)\)</span></li>
+</ol>
+<p><strong>Base case:</strong> <span class="math inline">\(\textsf{Peb}(i, i+1)\)</span> is just placing or removing a single pebble</p>
+</div>
+</div>
+<p>So, what’s the cost of this strategy?</p>
+<p>The real win is in space—only a single pebble is left at each level of recursion, so the space usage has been brought down all the way to <span class="math inline">\(O(\log k)\)</span>, which is a dramatic (exponential!) improvement.</p>
+<p>For time cost: we are playing three length-<span class="math inline">\(k/2\)</span> pebble games to solve one length-<span class="math inline">\(k\)</span> pebble game, so the number of steps is <span class="math display">\[
+T(k) = 3T(k/2) \Rightarrow O(k^{\log_2 3}) = O(k^{1.58\cdots})
+\]</span> which is… fine I guess, but this is a considerable overhead and we’d like to do a lot better! (And we will shortly!)</p>
+<p>Note that there is a time-space tradeoff possible here, by dividing the pebble game into more than two segments at each level of recursion. At the end of the day this yields:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Algorithm</th>
+<th>Space</th>
+<th>Depth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trivial</td>
+<td><span class="math inline">\(O(k)\)</span></td>
+<td><span class="math inline">\(2k-1\)</span></td>
+</tr>
+<tr class="even">
+<td>Recursive <a href="https://doi.org/10.1137/0218053">[Ben89]</a></td>
+<td><span class="math inline">\(O(2^{1/\epsilon} \cdot \log k)\)</span></td>
+<td><span class="math inline">\(O(k^{1+\epsilon})\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="spooky-pebble-games" class="level3">
+<h3 class="anchored" data-anchor-id="spooky-pebble-games">Spooky pebble games</h3>
+<p>So far, we’ve been considering quantum circuits as equivalent to reversible classical circuits. But that mindset gives us all of the difficulties of reversibility, with none of the benefits of quantum! In <a href="https://algassert.com/post/1905">a really nice blog post from 2019</a>, Craig Gidney laid out how we can change the rules of our pebble game to leverage quantum effects, in particular using <strong>measurement</strong> as a tool for quantum circuit design. Let’s explore this generalization, which Craig termed <strong><em>spooky pebble games</em></strong> (you’ll see why shortly).</p>
+<p>Consider a register <span class="math inline">\(\ket{x_i}\)</span> that is hanging around because we don’t currently have <span class="math inline">\(\ket{x_{i-1}}\)</span> to uncompute it. (In pebbling terms, there is a pebble on <span class="math inline">\(x_i\)</span> but not <span class="math inline">\(x_{i-1}\)</span>). We can’t measure <span class="math inline">\(\ket{x_i}\)</span> in the computational basis because that would in general collapse any superposition that we have going. But what if we do a Hadamard gate<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> on every qubit in the register <span class="math inline">\(\ket{x_i}\)</span> and <em>then</em> measure it?</p>
+<p><span class="math display">\[
+\ket{x} \cdots \ket{x_i} \stackrel{H^{\otimes n}}{\longrightarrow} \ket{x} \cdots \left[ \sum_{d=0}^{2^n - 1} (-1)^{d \cdot x_i} \ket{d} \right] \stackrel{\text{measure } d}{\longrightarrow} (-1)^{d \cdot x_i} \ket{x} \cdots
+\]</span></p>
+<p>What is the effect of doing this? After the measurement we’ve recovered a register that we can now re-use for something else, effectively removing a pebble! And we haven’t collapsed any superposition over values <span class="math inline">\(x\)</span> because <span class="math inline">\(d\)</span> did not encode any information about <span class="math inline">\(x_i\)</span>. However, we have <em>screwed up</em> the superposition by introducing a phase <span class="math inline">\((-1)^{d \cdot x_i}\)</span>. If we want to ultimately get to our target state <span class="math inline">\(\ket{x}\ket{f(x)}\)</span>, we better clean up this phase later—which will in general require access to the value of <span class="math inline">\(x_i\)</span> (which varies across the superposition of inputs <span class="math inline">\(x\)</span>).<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Thus Craig termed these phases <strong><em>ghosts</em></strong>: they take up no quantum space but must be cleaned up just like regular pebbles for our pebble game to be considered complete.</p>
+<p>Let’s make this explicit in the rules:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Spooky pebble game rules
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Start</strong>: a pebble only on <span class="math inline">\(x\)</span></p>
+<p><strong>Goal</strong>: pebbles on <span class="math inline">\(x\)</span> and <span class="math inline">\(f(x)\)</span>, no other pebbles or ghosts present</p>
+<p><strong>Allowed moves</strong>:</p>
+<ul>
+<li>can place or remove a pebble on <span class="math inline">\(x_i\)</span> iff there is a pebble on <span class="math inline">\(x_{i-1}\)</span></li>
+<li>can replace a pebble with a <strong>ghost</strong> at any time</li>
+<li>can <strong>exorcise</strong> (remove) a ghost on <span class="math inline">\(x_i\)</span> by placing a pebble there<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
+</ul>
+</div>
+</div>
+<p>What does this buy us? It turns out the answer is, a whole lot!</p>
+<p>Recall the recursive construction above. There, we did a pebble game on the first half <span class="math inline">\(\mathsf{Peb}(0, k/2)\)</span> <em>twice</em>: once to place a pebble at <span class="math inline">\(k/2\)</span>, and again to remove it later. But if we <em>know</em> we are going to be putting pebbles on each position up to <span class="math inline">\(k/2\)</span> later, we might as well replace the entire first <span class="math inline">\(\mathsf{Peb}(0, k/2)\)</span> with ghosting! In <a href="https://arxiv.org/abs/2510.08432">our paper</a> we call this <em>blasting</em>: you zoom across in a linear number of steps, immediately replacing every pebble you place with a ghost. Visually here’s a depiction of how it changes the recursive construction:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pebble_spooky_recursive.svg" class="img-fluid figure-img"></p>
+<figcaption>Recursive solution to the spooky pebble game.</figcaption>
+</figure>
+</div>
+<p>As an algorithm, here’s what’s happening:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Recursive algorithm for <span class="math inline">\(\textsf{SpookyPeb}(0, k)\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Place a pebble at <span class="math inline">\(k/2\)</span> via <span class="math inline">\(\textsf{Blast}(0, k/2)\)</span></li>
+<li>Place a pebble at <span class="math inline">\(k\)</span> via <span class="math inline">\(\textsf{SpookyPeb}(k/2, k)\)</span></li>
+<li>Remove the pebble at <span class="math inline">\(k/2\)</span> via <span class="math inline">\(\textsf{SpookyPeb}(0, k/2)\)</span></li>
+</ol>
+<p><strong>Base case:</strong> <span class="math inline">\(\textsf{SpookyPeb}(i, i+1)\)</span> is just placing or removing a single pebble</p>
+</div>
+</div>
+<p>What’s the cost of this algorithm? In terms of space, it still only takes <span class="math inline">\(O(\log k)\)</span> pebbles, just like the (non-generalized) non-spooky recursive construction. But the time cost is now: <span class="math display">\[
+T(k) = O(k) + 2T(k/2) = O(k \log k)
+\]</span> We got the time cost all the way down to <span class="math inline">\(O(k \log k)\)</span>! That’s a dramatic improvement over the non-spooky version.</p>
+<p>Updating our comparison table:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Algorithm</th>
+<th>Space</th>
+<th>Depth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trivial</td>
+<td><span class="math inline">\(O(k)\)</span></td>
+<td><span class="math inline">\(2k-1\)</span></td>
+</tr>
+<tr class="even">
+<td>Recursive <a href="https://doi.org/10.1137/0218053">[Ben89]</a></td>
+<td><span class="math inline">\(O(2^{1/\epsilon} \cdot \log k)\)</span></td>
+<td><span class="math inline">\(O(k^{1+\epsilon})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Spooky recursive <a href="https://algassert.com/post/1905">[Gid19]</a></td>
+<td><span class="math inline">\(O(\log k)\)</span></td>
+<td><span class="math inline">\(O(k \log k)\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="parallelism" class="level3">
+<h3 class="anchored" data-anchor-id="parallelism">Parallelism</h3>
+<p>The last ingredient we’ll include is parallelism. Parallelism in non-spooky reversible pebble games has been <a href="https://arxiv.org/abs/2110.04191">studied</a> <a href="https://eprint.iacr.org/2024/334">before</a>. That already enables a moderate space-depth tradeoff (see table below), but as my coauthors and I found in <a href="https://arxiv.org/abs/2510.08432">our recent work</a>, it’s the combination of parallelism and spookiness that is really powerful.</p>
+<p>Here’s the absolutely optimal parallel spooky pebble game for <span class="math inline">\(k=12\)</span>, using only 7 pebbles:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pebble_parallel_spooky.svg" class="img-fluid figure-img"></p>
+<figcaption>A parallel spooky pebble game for <span class="math inline">\(k=12\)</span> which achieves the absolutely optimal depth of <span class="math inline">\(2k-1=23\)</span>, using only 7 pebbles.</figcaption>
+</figure>
+</div>
+<p>There’s a beautiful kind of orchestra going on, where pebbles being placed from the left arrive just in time to always allow a pebble to be removed at the “frontier” on the right.</p>
+<p>In our paper we show that parallel spooky pebbling achieves <em>simultaneously</em> the best of both space and depth from the other constructions:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Algorithm</th>
+<th>Space</th>
+<th>Depth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trivial</td>
+<td><span class="math inline">\(O(k)\)</span></td>
+<td><span style="color: yellow;"><span class="math inline">\(2k-1\)</span></span></td>
+</tr>
+<tr class="even">
+<td>Recursive <a href="https://doi.org/10.1137/0218053">[Ben89]</a></td>
+<td><span class="math inline">\(O(2^{1/\epsilon} \cdot \log k)\)</span></td>
+<td><span class="math inline">\(O(k^{1+\epsilon})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Spooky recursive <a href="https://algassert.com/post/1905">[Gid19]</a></td>
+<td><span style="color: yellow;"><span class="math inline">\(O(\log k)\)</span></span></td>
+<td><span class="math inline">\(O(k \log k)\)</span></td>
+</tr>
+<tr class="even">
+<td>Parallel <a href="https://arxiv.org/abs/2110.04191">[BHL21]</a></td>
+<td><span class="math inline">\(O(4^{\sqrt{\log k}})\)</span></td>
+<td><span class="math inline">\(O(k)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Parallel spooky</strong> <a href="https://arxiv.org/abs/2510.08432">[KRV25]</a></td>
+<td><span style="color: yellow;"><span class="math inline">\(O(\log k)\)</span></span></td>
+<td><span style="color: yellow;"><span class="math inline">\(2k-1\)</span></span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Measurement is useful for much more than readout: it is a tool that can break the assumption of reversibility in quantum circuits! We found here that measurement-based uncomputation can reduce not just constant factors, but even the <em>asymptotic</em> complexity of certain quantum operations. Pretty cool!</p>
+<p>Some additional tricks, for the interested reader:</p>
+<ul>
+<li>Using measurement-based uncomputation to reduce the cost of quantum addition
+<ul>
+<li><a href="https://arxiv.org/abs/1709.06648">Gidney ’17: Reducing <span class="math inline">\(T\)</span> count to <span class="math inline">\(4n\)</span></a></li>
+<li><a href="https://arxiv.org/abs/2507.23079">Gidney ’25: Constant ancilla count for classical-quantum addition</a></li>
+</ul></li>
+<li><a href="https://arxiv.org/abs/2008.04577">Jaques + Gidney ’20: Superposition masking</a></li>
+</ul>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>I’ve written the transformation in terms of basis states; it extends to superpositions by linearity.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Typically a layer of Hadamards is the simplest and cheapest basis change to use for this trick. However the trick <em>works</em> for a large class of unitary transformations—essentially anything that maps product states to uniform superpositions, with the information becoming encoded in the phase. For example, one can instead do <span class="math inline">\(\mathsf{QFT}_{2^n}\)</span> on an <span class="math inline">\(n\)</span>-qubit register and then measure; this makes cleaning up the resulting phase easier in some situations.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The phase also depends on <span class="math inline">\(d\)</span>, but after the measurement this value is classically known; we can just keep track of it classically until it’s time to fix the phase.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>While the terms “spooky pebbling” and “ghost” were introduced by Craig in his blog post, calling the removal of ghosts “exorcism” is my fault. Hey, I’m doing my part in making the scientific literature a little more fun!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
